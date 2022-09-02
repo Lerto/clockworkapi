@@ -56,16 +56,3 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
 }
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = 'one.clockwork'
-                artifactId = 'clockapi'
-                version = '0.1.1'
-            }
-        }
-    }
-}
