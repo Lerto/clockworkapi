@@ -8,12 +8,6 @@ android {
     namespace 'one.clockwork.apimodule'
     compileSdk 32
 
-    publishing {
-        singleVariant('release') {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
     defaultConfig {
         minSdkVersion  21
         targetSdkVersion 32
