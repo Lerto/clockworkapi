@@ -8,21 +8,11 @@ android {
     namespace 'one.clockwork.apimodule'
     compileSdk 32
 
-
-//    publishing {
-//        singleVariant('release') {
-//            withSourcesJar()
-//            withJavadocJar()
-//        }
-//    }
     defaultConfig {
-        applicationId "one.clockwork.apimodule"
-        minSdk 21
-        targetSdk 32
+        minSdkVersion  21
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -31,10 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -60,11 +47,11 @@ dependencies {
 afterEvaluate {
     publishing {
         publications {
-            debug(MavenPublication) {
+            release(MavenPublication) {
                 from components.release
-                groupId = 'one.clockwork'
-                artifactId = 'clockapi'
-                version = '0.1.1'
+                groupId = 'com.github.Lerto' //your git id
+                artifactId = 'clockworkapi' //your-repository
+                version = '0.1.4' // As same as the Tag
             }
         }
     }
