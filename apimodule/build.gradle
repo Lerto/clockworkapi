@@ -8,6 +8,13 @@ android {
     namespace 'one.clockwork.apimodule'
     compileSdk 32
 
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
     defaultConfig {
         applicationId "one.clockwork.apimodule"
         minSdk 21
@@ -31,6 +38,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
@@ -47,4 +55,17 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:$retr_version"
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'one.clockwork'
+                artifactId = 'clockapi'
+                version = '0.1.1'
+            }
+        }
+    }
 }
