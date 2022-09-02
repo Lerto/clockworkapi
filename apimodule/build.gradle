@@ -56,9 +56,9 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.Lerto' //your git id
+                groupId = 'com.github.lerto' //your git id
                 artifactId = 'clockworkapi' //your-repository
-                version = '0.2.0' // As same as the Tag
+                version = '1.0' // As same as the Tag
             }
         }
     }
