@@ -8,6 +8,12 @@ android {
     namespace 'one.clockwork.apimodule'
     compileSdk 32
 
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
     defaultConfig {
         minSdkVersion  21
         targetSdkVersion 32
@@ -44,6 +50,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
 }
 
+
 afterEvaluate {
     publishing {
         publications {
@@ -51,7 +58,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.Lerto' //your git id
                 artifactId = 'clockworkapi' //your-repository
-                version = '0.1.5' // As same as the Tag
+                version = '0.2.0' // As same as the Tag
             }
         }
     }
