@@ -23,10 +23,9 @@ import javax.net.ssl.X509TrustManager
 interface ApiService {
 
     @Headers("Content-Type: application/json")
-    @GET("concepts/{concept_id}")
+    @GET("concepts/v1")
     suspend fun getConcepts(
-        @Path("concept_id") id: String
-    ): Response<Model.Concept>
+    ): Response<ModelData.ConceptData>
 
     @Headers("Content-Type: application/json")
     @GET("products/v1")
