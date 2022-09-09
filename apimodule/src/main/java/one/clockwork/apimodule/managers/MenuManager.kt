@@ -138,7 +138,7 @@ class MenuManager constructor(
 
     private fun getConcepts() {
         CoroutineScope(Dispatchers.Main).launch {
-            val req = ApiService.apiAdmin(context).getConcepts()
+            val req = ApiService.apiCustomer().getConcepts()
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
             if (req.isSuccessful) {
