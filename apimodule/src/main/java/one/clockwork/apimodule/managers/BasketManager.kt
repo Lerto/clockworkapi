@@ -1,8 +1,14 @@
 package one.clockwork.apimodule.managers
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import one.clockwork.apimodule.api.ApiService
 import one.clockwork.apimodule.models.Model
+import one.clockwork.apimodule.models.ReturnStatus
 
 class BasketManager {
     private val basket: MutableLiveData<ArrayList<Model.ProductBasket>> =
@@ -10,6 +16,10 @@ class BasketManager {
     val basketLive: LiveData<ArrayList<Model.ProductBasket>> = basket
 
     private var lastProduct: Model.Product? = null
+
+    private val listStories: MutableLiveData<ArrayList<Model.Story>> =
+        MutableLiveData(ArrayList())
+    val listStoriesLive: LiveData<ArrayList<Model.Story>> = listStories
 
     fun removeProduct(product: Model.Product) {
         basket.value?.let { basketValue ->
@@ -75,7 +85,30 @@ class BasketManager {
         return lastProduct?.name ?: ""
     }
 
-    fun check20Tag() {
+    suspend fun sendOrder(order: Model.SendOrder): ReturnStatus {
+        val req = ApiService.apiCustomer().sendOrder(order)
+        Log.d("LOGSendOrder", req.toString())
+        Log.d("LOGSendOrder", req.body().toString())
+        Log.d("LOGSendOrder", req.errorBody()?.string().toString())
+        return if (req.isSuccessful)
+            ReturnStatus.OK
+        else {
+            ReturnStatus.FAIL
+        }
+    }
 
+    fun getStories() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiMarketing().getStories()
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listStories.postValue(it.data)
+                }
+            }
+        }
+    }
+
+    init {
+        getStories()
     }
 }

@@ -58,10 +58,10 @@ class MenuManager constructor(
 //        }
     }
 
-    private fun splitMainCategory() {
+    fun splitCategoryConcept(conceptId: String) {
         val catParent = ArrayList<Model.Category>()
         menu.categories.forEach { category ->
-            if (category.parentCategory == null) {
+            if (category.parentCategory == null && category.conceptId == conceptId) {
                 catParent.add(category)
                 if (catParent.size == 1) {
                     catParent[0].isSelected = true
@@ -72,10 +72,12 @@ class MenuManager constructor(
         splitMenu(catParent[0])
     }
 
-    fun splitMenu(parentCatId: Model.Category) {
+    private fun splitMenu(parentCatId: Model.Category) {
+        Log.d("LogMenuManagerSplit", parentCatId.toString())
         val menuSplit = ArrayList<Model.CategoryProduct>()
         val categoryAll = ArrayList<Model.Category>()
         splitCategory(parentCatId, categoryAll)
+        Log.d("LogMenuManagerSplit", categoryAll.toString())
 
         categoryAll.forEach { cat ->
             val productSplit = ArrayList<Model.Product>()
@@ -119,7 +121,7 @@ class MenuManager constructor(
                 menu.products = req.body()!!.data
 
                 productData.postValue(menu.products)
-                splitMainCategory()
+                conceptData.value?.get(0)?._id?.let { splitCategoryConcept(it) }
             }
         }
     }

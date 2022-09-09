@@ -65,6 +65,7 @@ object Model {
         val name: String,
         val parentCategory: String?,
         var imageSize: String?,
+        var conceptId: String?,
         var isSelected: Boolean = false
     ) : Serializable
 
