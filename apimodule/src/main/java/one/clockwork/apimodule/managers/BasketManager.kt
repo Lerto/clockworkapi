@@ -75,7 +75,7 @@ class BasketManager {
         return lastProduct?.name ?: ""
     }
 
-    fun check13Tag() {
+    fun check20Tag() {
 
     }
 }
