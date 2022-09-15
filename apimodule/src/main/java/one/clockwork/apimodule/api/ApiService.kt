@@ -92,18 +92,18 @@ interface ApiService {
         var companyKey = "lA8YqeCP6nxog80g15nKGlSz4VmZeWoThppQGOvvfrwEnVJm7X64lqnqjvlwcVz0"
 
 
-        fun apiMarketing(): ApiService {
-            if (apiService == null) {
-                apiService = Retrofit.Builder()
-                    .baseUrl(MARKETING_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                    .client(httpOK())
-                    .build()
-                    .create(ApiService::class.java)
-            }
-            return apiService!!
-        }
+//        fun apiMarketing(): ApiService {
+//            if (apiService == null) {
+//                apiService = Retrofit.Builder()
+//                    .baseUrl(MARKETING_URL)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+//                    .client(httpOK())
+//                    .build()
+//                    .create(ApiService::class.java)
+//            }
+//            return apiService!!
+//        }
 
         fun apiCustomer(): ApiService {
             if (apiServiceCustomer == null) {
