@@ -15,14 +15,14 @@ object Model {
     data class SendOrder(
         val conceptId: String,
         val companyId: String,
-        val terminalId: String,
+        val terminalId: String?,
         val deliveryTypeId: String,
         val personsCount: Int,
         val paymentTypeId: String,
         val deliveryTime: String?,
         val products: ArrayList<ProductSend>,
         val sourceId: String,
-        val address: Address,
+        val address: Address?,
         val withdrawBonuses: Int,
         val comment: String
     )

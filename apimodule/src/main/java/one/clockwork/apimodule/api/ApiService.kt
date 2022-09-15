@@ -11,7 +11,10 @@ import one.clockwork.apimodule.models.ModelData
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.POST
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.NoSuchAlgorithmException
@@ -43,7 +46,7 @@ interface ApiService {
     ): Response<Model.ApiAnswer>
 
     @Headers("Content-Type: application/json")
-    @POST("app/v1/order")
+    @POST("orders/v1/order")
     suspend fun sendOrder(
         @Body body: Model.SendOrder
     ): Response<Model.Message>
