@@ -73,7 +73,7 @@ object Model {
         val firstName: String,
         val lastName: String,
         val email: String,
-        val sex: Int,
+        val sex: String,
         val dob: String
     )
 

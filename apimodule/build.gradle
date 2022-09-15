@@ -39,7 +39,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
-
     def retr_version = "2.6.1"
     implementation "com.squareup.retrofit2:retrofit:$retr_version"
     implementation "com.squareup.retrofit2:converter-gson:$retr_version"
