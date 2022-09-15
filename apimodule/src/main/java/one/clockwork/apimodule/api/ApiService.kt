@@ -31,7 +31,7 @@ interface ApiService {
     ): Response<ModelData.ConceptData>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/content")
+    @GET("api/v1/contents")
     suspend fun getContents(
     ): Response<ModelData.ContentData>
 
@@ -77,7 +77,7 @@ interface ApiService {
     ): Response<Model.CodeAnswer>
 
     @Headers("Content-Type: application/json")
-    @GET("stories?onlyEnabled=true")
+    @GET("stories/v1")
     suspend fun getStories(): Response<ModelData.StoryData>
 
     companion object {
