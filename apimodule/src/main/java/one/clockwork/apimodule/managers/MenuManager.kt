@@ -14,6 +14,7 @@ class MenuManager constructor(
     private val context: Context
 ) {
     var menu = Model.Menu(ArrayList(), ArrayList())
+    var conceptIdThis = ""
     private val menuUpdate = ArrayList<Model.Menu>()
 
     private val menuThis: MutableLiveData<ArrayList<Model.CategoryProduct>> =
@@ -59,6 +60,7 @@ class MenuManager constructor(
     }
 
     fun splitCategoryConcept(conceptId: String) {
+        conceptIdThis = conceptId
         val catParent = ArrayList<Model.Category>()
         menu.categories.forEach { category ->
             if (category.parentCategory == null && category.conceptId == conceptId) {
@@ -72,7 +74,7 @@ class MenuManager constructor(
         splitMenu(catParent[0])
     }
 
-    private fun splitMenu(parentCatId: Model.Category) {
+    fun splitMenu(parentCatId: Model.Category) {
         Log.d("LogMenuManagerSplit", parentCatId.toString())
         val menuSplit = ArrayList<Model.CategoryProduct>()
         val categoryAll = ArrayList<Model.Category>()

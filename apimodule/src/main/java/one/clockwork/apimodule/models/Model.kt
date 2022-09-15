@@ -128,12 +128,13 @@ object Model {
         val _id: String = "",
         val name: String = "",
         val code: String = "",
-        val iikoId: String = "",
         val image: Image,
         var description: String = "",
         var unit: String = "",
         var price: Int = 0,
         var modifiers: ArrayList<Modifiers>,
+        var weight: Weight,
+        var featured: ArrayList<Product>,
         val isHidden: Boolean,
         val isDisabled: Boolean,
         val slug: String = "",
@@ -141,6 +142,11 @@ object Model {
         var amount: Int = 0,
         var categoryId: String = "",
         val terminalId: String = ""
+    )
+
+    data class Weight(
+        val full: Int,
+        val min: Int
     )
 
     data class Badge(

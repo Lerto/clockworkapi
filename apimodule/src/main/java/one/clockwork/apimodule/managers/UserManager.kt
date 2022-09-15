@@ -176,6 +176,15 @@ class UserManager constructor(
         }
     }
 
+    fun sendToken(token: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().sendToken(token)
+            Log.d("LOGSendToken", req.toString())
+            Log.d("LOGSendToken", req.body().toString())
+            Log.d("LOGSendToken", req.errorBody()?.string().toString())
+        }
+    }
+
     init {
         getProfile()
         getStories()

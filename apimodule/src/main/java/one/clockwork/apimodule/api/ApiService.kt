@@ -15,6 +15,8 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Query
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.NoSuchAlgorithmException
@@ -79,6 +81,12 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("stories/v1")
     suspend fun getStories(): Response<ModelData.StoryData>
+
+    @Headers("Content-Type: application/json")
+    @PUT("me/v1/fcm")
+    suspend fun sendToken(
+        @Query("push_token") token: String
+    ): Response<Model.Message>
 
     companion object {
         private const val MARKETING_URL = "https://marketing.api.cw.marketing/"
