@@ -151,6 +151,9 @@ class UserManager constructor(
     fun getStories() {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiMarketing().getStories()
+            Log.d("LOGStories", req.toString())
+            Log.d("LOGStories", req.body().toString())
+            Log.d("LOGStories", req.errorBody()?.string().toString())
             if (req.isSuccessful) {
                 req.body()?.let {
                     listStories.postValue(it.data)
@@ -162,6 +165,9 @@ class UserManager constructor(
     fun getContent() {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiMarketing().getContents()
+            Log.d("LOGContent", req.toString())
+            Log.d("LOGContent", req.body().toString())
+            Log.d("LOGContent", req.errorBody()?.string().toString())
             if (req.isSuccessful) {
                 req.body()?.let {
                     listContent.postValue(it.data)
