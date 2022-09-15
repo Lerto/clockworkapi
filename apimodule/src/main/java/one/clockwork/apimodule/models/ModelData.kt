@@ -19,4 +19,8 @@ object ModelData {
     data class CategoryData(
         val data: ArrayList<Model.Category>
     ) : Serializable
+
+    data class ContentData(
+        val data: ArrayList<Model.Content>
+    )
 }

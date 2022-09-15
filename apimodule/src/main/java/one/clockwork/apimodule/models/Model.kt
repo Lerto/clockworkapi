@@ -60,6 +60,18 @@ object Model {
         var isSelected: Boolean = false
     )
 
+    data class Content(
+        val _id: String,
+        val name: String,
+        val type: String,
+        val image: String,
+        val url: String,
+        val text: String,
+        val order: Int,
+        val conceptId: String?,
+        val isDeleted: Boolean
+    )
+
     data class Category(
         val _id: String,
         val name: String,

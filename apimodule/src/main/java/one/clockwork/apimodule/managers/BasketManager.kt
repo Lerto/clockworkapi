@@ -17,10 +17,6 @@ class BasketManager {
 
     private var lastProduct: Model.Product? = null
 
-    private val listStories: MutableLiveData<ArrayList<Model.Story>> =
-        MutableLiveData(ArrayList())
-    val listStoriesLive: LiveData<ArrayList<Model.Story>> = listStories
-
     fun removeProduct(product: Model.Product) {
         basket.value?.let { basketValue ->
             var removeSome: Model.ProductBasket? = null
@@ -95,20 +91,5 @@ class BasketManager {
         else {
             ReturnStatus.FAIL
         }
-    }
-
-    fun getStories() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val req = ApiService.apiMarketing().getStories()
-            if (req.isSuccessful) {
-                req.body()?.let {
-                    listStories.postValue(it.data)
-                }
-            }
-        }
-    }
-
-    init {
-        getStories()
     }
 }

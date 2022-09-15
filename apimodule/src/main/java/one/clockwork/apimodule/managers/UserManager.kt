@@ -2,6 +2,7 @@ package one.clockwork.apimodule.managers
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,14 @@ class UserManager constructor(
 ) {
     var profile: MutableLiveData<Model.User> =
         MutableLiveData(Model.User("_none", "", "", 0, "", Gender.M, "", "", 0))
+
+    private val listStories: MutableLiveData<ArrayList<Model.Story>> =
+        MutableLiveData(ArrayList())
+    val listStoriesLive: LiveData<ArrayList<Model.Story>> = listStories
+
+    private val listContent: MutableLiveData<ArrayList<Model.Content>> =
+        MutableLiveData(ArrayList())
+    val listContentLive: LiveData<ArrayList<Model.Content>> = listContent
 
     var balance: MutableLiveData<Model.Balance> = MutableLiveData(Model.Balance(0.0, ArrayList()))
 
@@ -138,7 +147,32 @@ class UserManager constructor(
         }
     }
 
+
+    fun getStories() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiMarketing().getStories()
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listStories.postValue(it.data)
+                }
+            }
+        }
+    }
+
+    fun getContent() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiMarketing().getContents()
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listContent.postValue(it.data)
+                }
+            }
+        }
+    }
+
     init {
         getProfile()
+        getStories()
+        getContent()
     }
 }
