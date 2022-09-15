@@ -40,7 +40,7 @@ interface ApiService {
     suspend fun getCategories(): Response<ModelData.CategoryData>
 
     @Headers("Content-Type: application/json")
-    @POST("app/v1/signup")
+    @POST("auth/v1/signup")
     suspend fun registrationUser(
         @Body body: Model.UserRegistration
     ): Response<Model.ApiAnswer>
@@ -66,7 +66,7 @@ interface ApiService {
     ): Response<Model.LoginAnswer>
 
     @Headers("Content-Type: application/json")
-    @POST("app/v1/code")
+    @POST("auth/v1/code")
     suspend fun getCode(
         @Body body: Model.Phone
     ): Response<Model.CodeAnswer>
