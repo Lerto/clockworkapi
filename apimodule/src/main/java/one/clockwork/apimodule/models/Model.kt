@@ -145,8 +145,8 @@ object Model {
     )
 
     data class Weight(
-        val full: Int,
-        val min: Int
+        val full: Double,
+        val min: Double
     )
 
     data class Badge(
