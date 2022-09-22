@@ -188,7 +188,8 @@ object Model {
     )
 
     data class FavoriteCode(
-        val productCode: String
+        val productCode: String,
+        val conceptId: String
     )
 
     data class Story(

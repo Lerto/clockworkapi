@@ -38,6 +38,7 @@ class MenuManager constructor(
     val favoriteDataLive: LiveData<ArrayList<Model.Product>> = favoriteData
 
     init {
+        getFavorite()
         getMenu()
     }
 
@@ -170,17 +171,17 @@ class MenuManager constructor(
         }
     }
 
-    fun sendFavorite(code: String) {
+    fun sendFavorite(code: String, conceptId: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            val req = ApiService.apiCustomer().sendFavorite(Model.FavoriteCode(code))
+            val req = ApiService.apiCustomer().sendFavorite(Model.FavoriteCode(code, conceptId))
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
         }
     }
 
-    fun deleteFavorite(code: String) {
+    fun deleteFavorite(code: String, conceptId: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            val req = ApiService.apiCustomer().deleteFavorite(Model.FavoriteCode(code))
+            val req = ApiService.apiCustomer().deleteFavorite(Model.FavoriteCode(code, conceptId))
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
         }
