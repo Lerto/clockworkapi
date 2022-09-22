@@ -27,6 +27,10 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listContentLive: LiveData<ArrayList<Model.Content>> = listContent
 
+    private val listNotification: MutableLiveData<ArrayList<Model.Notification>> =
+        MutableLiveData(ArrayList())
+    val listNotificationLive: LiveData<ArrayList<Model.Notification>> = listNotification
+
     var balance: MutableLiveData<Model.Balance> = MutableLiveData(Model.Balance(0.0, ArrayList()))
 
     var addresses: MutableLiveData<ArrayList<Model.Address>> = MutableLiveData(ArrayList())
@@ -162,6 +166,20 @@ class UserManager constructor(
         }
     }
 
+    fun getNotifications() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getNotif()
+            Log.d("LOGStories", req.toString())
+            Log.d("LOGStories", req.body().toString())
+            Log.d("LOGStories", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listNotification.postValue(it.data)
+                }
+            }
+        }
+    }
+
     fun getContent() {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().getContents()
@@ -189,5 +207,6 @@ class UserManager constructor(
         getProfile()
         getStories()
         getContent()
+        getNotifications()
     }
 }

@@ -11,12 +11,7 @@ import one.clockwork.apimodule.models.ModelData
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.NoSuchAlgorithmException
@@ -83,6 +78,21 @@ interface ApiService {
     suspend fun getStories(): Response<ModelData.StoryData>
 
     @Headers("Content-Type: application/json")
+    @GET("favorite/v1")
+    suspend fun getFavorite(): Response<ModelData.ProductData>
+
+    @Headers("Content-Type: application/json")
+    @GET("notifications/v1")
+    suspend fun getNotif(): Response<ModelData.NotificationData>
+
+    @Headers("Content-Type: application/json")
+    @POST("favorite/v1")
+    suspend fun sendFavorite(
+        @Body body: Model.FavoriteCode
+    ): Response<Model.Product>
+
+
+    @Headers("Content-Type: application/json")
     @PUT("me/v1/fcm")
     suspend fun sendToken(
         @Query("push_token") token: String
@@ -115,12 +125,9 @@ interface ApiService {
 
         fun apiCustomer(): ApiService {
             if (apiServiceCustomer == null) {
-                apiServiceCustomer = Retrofit.Builder()
-                    .baseUrl(CUSTOMER_URL)
+                apiServiceCustomer = Retrofit.Builder().baseUrl(CUSTOMER_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                    .client(httpOK())
-                    .build()
+                    .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(httpOK()).build()
                     .create(ApiService::class.java)
             }
             return apiServiceCustomer!!
@@ -128,47 +135,40 @@ interface ApiService {
 
         fun apiAdmin(context: Context): ApiService {
             if (apiServiceAdmin == null) {
-                apiServiceAdmin = Retrofit.Builder()
-                    .baseUrl(ADMIN_URL)
+                apiServiceAdmin = Retrofit.Builder().baseUrl(ADMIN_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                    .client(httpOK())
-                    .build()
+                    .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(httpOK()).build()
                     .create(ApiService::class.java)
             }
             return apiServiceAdmin!!
         }
 
-        private fun httpOK() = OkHttpClient.Builder()
-            .addInterceptor(MyInterceptor())
-            .addInterceptor {
-                val request = it.request()
-                val response = it.proceed(request)
-                if (response.code == 307) {
-                    val url = HttpUrl.Builder()
-                        .scheme(request.url.scheme)
-                        .host(request.url.host)
-                        .addPathSegment(response.header("location", request.url.toUrl().path) ?: "")
-                        .build()
+        private fun httpOK() =
+            OkHttpClient.Builder().addInterceptor(MyInterceptor()).addInterceptor {
+                    val request = it.request()
+                    val response = it.proceed(request)
+                    if (response.code == 307) {
+                        val url =
+                            HttpUrl.Builder().scheme(request.url.scheme).host(request.url.host)
+                                .addPathSegment(
+                                    response.header(
+                                        "location",
+                                        request.url.toUrl().path
+                                    ) ?: ""
+                                ).build()
 
 
-                    val newRequest = Request.Builder()
-                        .method(request.method, request.body)
-                        .url(url)
-                        .headers(request.headers)
-                        .build()
+                        val newRequest =
+                            Request.Builder().method(request.method, request.body).url(url)
+                                .headers(request.headers).build()
 
-                    return@addInterceptor it.proceed(newRequest)
-                }
+                        return@addInterceptor it.proceed(newRequest)
+                    }
 
-                response
-            }
-            .sslSocketFactory(TLSSocketFactory(), getTrustManager()!!)
-            .callTimeout(1, TimeUnit.MINUTES)
-            .connectTimeout(20, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
+                    response
+                }.sslSocketFactory(TLSSocketFactory(), getTrustManager()!!)
+                .callTimeout(1, TimeUnit.MINUTES).connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).build()
 
         private fun getTrustManager(): X509TrustManager? {
             var trustManagerFactory: TrustManagerFactory?
@@ -198,12 +198,10 @@ class MyInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
         val builder = chain.request().newBuilder()
         builder.addHeader(
-            "Authorization",
-            "Bearer ${ApiService.accessToken}"
+            "Authorization", "Bearer ${ApiService.accessToken}"
         )
         builder.addHeader(
-            "Company-Access-Key",
-            ApiService.companyKey
+            "Company-Access-Key", ApiService.companyKey
         )
         builder.addHeader("Loyalaty-Id", ApiService.loyalty)
 

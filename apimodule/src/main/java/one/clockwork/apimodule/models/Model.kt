@@ -46,6 +46,8 @@ object Model {
         val name: String?,
         val image: Image,
         val additionalData: String,
+        val isDeleted: Boolean,
+        val isDisabled: Boolean,
         var isSelected: Boolean = false
     )
 
@@ -78,6 +80,9 @@ object Model {
         val parentCategory: String?,
         var imageSize: String?,
         var conceptId: String?,
+        val isDeleted: Boolean,
+        val isDisabled: Boolean,
+        val isHidden: Boolean,
         var isSelected: Boolean = false
     ) : Serializable
 
@@ -136,6 +141,7 @@ object Model {
         var weight: Weight,
         var featured: ArrayList<Product>,
         val isHidden: Boolean,
+        val isDeleted: Boolean,
         val isDisabled: Boolean,
         val slug: String = "",
         val badges: ArrayList<Badge>,
@@ -172,7 +178,17 @@ object Model {
     )
 
     data class Notification(
-        val text: String
+        val _id: String,
+        val title: String,
+        val subtitle: String,
+        val body: String,
+        val image: Image,
+        val isDeleted: Boolean,
+        val isDisabled: Boolean
+    )
+
+    data class FavoriteCode(
+        val productCode: String
     )
 
     data class Story(
@@ -180,6 +196,7 @@ object Model {
         val preview: Image?,
         val type: Int = 0,
         val slides: ArrayList<Image>,
+        val isDeleted: Boolean,
         val isDisabled: Boolean,
         val createdAt: String? = "",
         val updatedAt: String? = ""

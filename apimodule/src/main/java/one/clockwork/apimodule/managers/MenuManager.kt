@@ -33,6 +33,10 @@ class MenuManager constructor(
         MutableLiveData(ArrayList())
     val categoryDataLive: LiveData<ArrayList<Model.Category>> = categoryData
 
+    private val favoriteData: MutableLiveData<ArrayList<Model.Product>> =
+        MutableLiveData(ArrayList())
+    val favoriteDataLive: LiveData<ArrayList<Model.Product>> = favoriteData
+
     init {
         getMenu()
     }
@@ -91,9 +95,7 @@ class MenuManager constructor(
             if (productSplit.isNotEmpty()) {
                 menuSplit.add(
                     Model.CategoryProduct(
-                        cat.name,
-                        productSplit,
-                        cat.imageSize ?: "63032ca4c9cf2abb6cf57df8"
+                        cat.name, productSplit, cat.imageSize ?: "63032ca4c9cf2abb6cf57df8"
                     )
                 )
             }
@@ -103,8 +105,7 @@ class MenuManager constructor(
     }
 
     private fun splitCategory(
-        categoryId: Model.Category,
-        menuCategories: ArrayList<Model.Category>
+        categoryId: Model.Category, menuCategories: ArrayList<Model.Category>
     ) {
         menu.categories.forEach { cat ->
             if (cat.parentCategory == categoryId._id) {
@@ -140,7 +141,7 @@ class MenuManager constructor(
         }
     }
 
-    private fun getConcepts() {
+    fun getConcepts() {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().getConcepts()
             Log.d("LogMenuManager", req.toString())
@@ -152,6 +153,28 @@ class MenuManager constructor(
                     getCategory()
                 }
             }
+        }
+    }
+
+    fun getFavorite() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getFavorite()
+            Log.d("LogMenuManager", req.toString())
+            Log.d("LogMenuManager", req.body().toString())
+            if (req.isSuccessful) {
+                if (req.body() != null) {
+                    val products = req.body()!!.data
+                    favoriteData.postValue(products)
+                }
+            }
+        }
+    }
+
+    fun sendFavorite(code: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().sendFavorite(Model.FavoriteCode(code))
+            Log.d("LogMenuManager", req.toString())
+            Log.d("LogMenuManager", req.body().toString())
         }
     }
 }

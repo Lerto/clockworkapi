@@ -23,4 +23,8 @@ object ModelData {
     data class ContentData(
         val data: ArrayList<Model.Content>
     )
+
+    data class NotificationData(
+        val data: ArrayList<Model.Notification>
+    )
 }
