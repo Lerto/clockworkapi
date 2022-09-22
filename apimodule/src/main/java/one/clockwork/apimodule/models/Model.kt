@@ -89,7 +89,7 @@ object Model {
     data class UserRegistration(
         val firstName: String,
         val lastName: String,
-        val email: String,
+        val email: String?,
         val sex: String,
         val dob: String
     )
