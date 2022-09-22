@@ -82,6 +82,12 @@ interface ApiService {
     suspend fun getFavorite(): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
+    @DELETE("favorite/v1")
+    suspend fun deleteFavorite(
+        @Body body: Model.FavoriteCode
+    ): Response<ModelData.ProductData>
+
+    @Headers("Content-Type: application/json")
     @GET("notifications/v1")
     suspend fun getNotif(): Response<ModelData.NotificationData>
 

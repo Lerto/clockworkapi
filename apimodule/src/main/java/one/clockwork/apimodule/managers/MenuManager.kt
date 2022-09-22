@@ -177,4 +177,12 @@ class MenuManager constructor(
             Log.d("LogMenuManager", req.body().toString())
         }
     }
+
+    fun deleteFavorite(code: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().deleteFavorite(Model.FavoriteCode(code))
+            Log.d("LogMenuManager", req.toString())
+            Log.d("LogMenuManager", req.body().toString())
+        }
+    }
 }
