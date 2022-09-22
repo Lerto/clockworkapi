@@ -134,6 +134,7 @@ class MenuManager constructor(
         val req = ApiService.apiCustomer().getCategories()
         Log.d("LogMenuManager", req.toString())
         Log.d("LogMenuManager", req.body().toString())
+        Log.d("LOGSendOrder", req.errorBody()?.string().toString())
         if (req.isSuccessful) {
             if (req.body() != null) {
                 menu.categories = req.body()!!.data
@@ -147,6 +148,7 @@ class MenuManager constructor(
             val req = ApiService.apiCustomer().getConcepts()
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
+            Log.d("LOGSendOrder", req.errorBody()?.string().toString())
             if (req.isSuccessful) {
                 if (req.body() != null) {
                     val concepts = req.body()!!.data
@@ -162,6 +164,7 @@ class MenuManager constructor(
             val req = ApiService.apiCustomer().getFavorite(conceptIdThis)
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
+            Log.d("LOGSendOrder", req.errorBody()?.string().toString())
             if (req.isSuccessful) {
                 if (req.body() != null) {
                     val products = req.body()!!.data
@@ -176,6 +179,7 @@ class MenuManager constructor(
             val req = ApiService.apiCustomer().sendFavorite(Model.FavoriteCode(code, conceptIdThis))
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
+            Log.d("LOGSendOrder", req.errorBody()?.string().toString())
         }
     }
 
@@ -185,6 +189,7 @@ class MenuManager constructor(
                 ApiService.apiCustomer().deleteFavorite(Model.FavoriteCode(code, conceptIdThis))
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
+            Log.d("LOGSendOrder", req.errorBody()?.string().toString())
         }
     }
 }
