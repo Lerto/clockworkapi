@@ -79,7 +79,9 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @GET("favorite/v1")
-    suspend fun getFavorite(): Response<ModelData.ProductData>
+    suspend fun getFavorite(
+        @Query("conceptId") id: String
+    ): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
     @HTTP(method = "DELETE", path = "favorite/v1", hasBody = true)

@@ -159,7 +159,7 @@ class MenuManager constructor(
 
     fun getFavorite() {
         CoroutineScope(Dispatchers.Main).launch {
-            val req = ApiService.apiCustomer().getFavorite()
+            val req = ApiService.apiCustomer().getFavorite(conceptIdThis)
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
             if (req.isSuccessful) {
@@ -171,17 +171,18 @@ class MenuManager constructor(
         }
     }
 
-    fun sendFavorite(code: String, conceptId: String) {
+    fun sendFavorite(code: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            val req = ApiService.apiCustomer().sendFavorite(Model.FavoriteCode(code, conceptId))
+            val req = ApiService.apiCustomer().sendFavorite(Model.FavoriteCode(code, conceptIdThis))
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
         }
     }
 
-    fun deleteFavorite(code: String, conceptId: String) {
+    fun deleteFavorite(code: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            val req = ApiService.apiCustomer().deleteFavorite(Model.FavoriteCode(code, conceptId))
+            val req =
+                ApiService.apiCustomer().deleteFavorite(Model.FavoriteCode(code, conceptIdThis))
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
         }
