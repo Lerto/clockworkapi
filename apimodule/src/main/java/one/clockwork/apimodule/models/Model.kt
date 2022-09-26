@@ -134,6 +134,7 @@ object Model {
         val name: String = "",
         val code: String = "",
         val image: Image,
+        val previewImage: Image,
         var description: String = "",
         var unit: String = "",
         var price: Int = 0,
@@ -200,8 +201,15 @@ object Model {
         val isDeleted: Boolean,
         val isDisabled: Boolean,
         val createdAt: String? = "",
-        val updatedAt: String? = ""
+        val updatedAt: String? = "",
+        val uiSettings: UISetting
     ) : Serializable
+
+    data class UISetting(
+        val url: String,
+        val text: String,
+        val color: String
+    )
 
     data class UserLogin(
         val phone: Long,
