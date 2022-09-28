@@ -71,7 +71,8 @@ object Model {
         val text: String,
         val order: Int,
         val conceptId: String?,
-        val isDeleted: Boolean
+        val isDeleted: Boolean,
+        val uiSettings: UISetting
     )
 
     data class Category(
