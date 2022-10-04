@@ -23,7 +23,7 @@ import javax.net.ssl.X509TrustManager
 interface ApiService {
 
     @Headers("Content-Type: application/json")
-    @GET("concepts/v1")
+    @GET("api/v1/concepts")
     suspend fun getConcepts(
     ): Response<ModelData.ConceptData>
 
@@ -33,52 +33,52 @@ interface ApiService {
     ): Response<ModelData.ContentData>
 
     @Headers("Content-Type: application/json")
-    @GET("products/v1/?limit=500")
+    @GET("api/v1/products/?limit=500")
     suspend fun getProducts(
     ): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
-    @GET("categories/v1")
+    @GET("api/v1/categories")
     suspend fun getCategories(): Response<ModelData.CategoryData>
 
     @Headers("Content-Type: application/json")
-    @POST("auth/v1/signup")
+    @POST("api/v1/auth/signup")
     suspend fun registrationUser(
         @Body body: Model.UserRegistration
     ): Response<Model.ApiAnswer>
 
     @Headers("Content-Type: application/json")
-    @POST("orders/v1/order")
+    @POST("/api/v1/orders/order")
     suspend fun sendOrder(
         @Body body: Model.SendOrder
     ): Response<Model.Message>
 
     @Headers("Content-Type: application/json")
-    @GET("me/v1/profile")
+    @GET("api/v1/me/profile")
     suspend fun getProfile(): Response<Model.User>
 
     @Headers("Content-Type: application/json")
-    @GET("me/v1/balance")
+    @GET("api/v1/me/balance")
     suspend fun getBalance(): Response<Model.Balance>
 
     @Headers("Content-Type: application/json")
-    @POST("auth/v1/token")
+    @POST("api/v1/auth/token")
     suspend fun login(
         @Body body: Model.UserLogin
     ): Response<Model.LoginAnswer>
 
     @Headers("Content-Type: application/json")
-    @POST("auth/v1/code")
+    @POST("api/v1/auth/code")
     suspend fun getCode(
         @Body body: Model.Phone
     ): Response<Model.CodeAnswer>
 
     @Headers("Content-Type: application/json")
-    @GET("stories/v1")
+    @GET("api/v1/stories")
     suspend fun getStories(): Response<ModelData.StoryData>
 
     @Headers("Content-Type: application/json")
-    @GET("favorite/v1")
+    @GET("/api/v1/favorite")
     suspend fun getFavorite(
         @Query("conceptId") id: String
     ): Response<ModelData.ProductData>
@@ -90,18 +90,18 @@ interface ApiService {
     ): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
-    @GET("notifications/v1")
+    @GET("api/v1/notifications")
     suspend fun getNotif(): Response<ModelData.NotificationData>
 
     @Headers("Content-Type: application/json")
-    @POST("favorite/v1")
+    @POST("/api/v1/favorite")
     suspend fun sendFavorite(
         @Body body: Model.FavoriteCode
     ): Response<Model.Product>
 
 
     @Headers("Content-Type: application/json")
-    @PUT("me/v1/fcm")
+    @PUT("api/v1/me/fcm")
     suspend fun sendToken(
         @Query("push_token") token: String
     ): Response<Model.Message>
