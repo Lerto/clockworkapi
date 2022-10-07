@@ -179,6 +179,18 @@ object Model {
         val amount: Int
     )
 
+    data class Terminal(
+        val _id: String,
+        val name: String,
+        val terminalId: String,
+        val address: Address,
+        val conceptId: String,
+        val isDeleted: Boolean,
+        val isHidden: Boolean,
+        val isDisabled: Boolean
+    )
+
+
     data class Notification(
         val _id: String,
         val title: String,

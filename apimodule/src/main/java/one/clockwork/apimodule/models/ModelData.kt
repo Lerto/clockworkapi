@@ -27,4 +27,8 @@ object ModelData {
     data class NotificationData(
         val data: ArrayList<Model.Notification>
     )
+
+    data class TerminalData(
+        val data: ArrayList<Model.Terminal>
+    )
 }

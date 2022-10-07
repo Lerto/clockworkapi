@@ -27,6 +27,10 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listContentLive: LiveData<ArrayList<Model.Content>> = listContent
 
+    private val listTerminals: MutableLiveData<ArrayList<Model.Terminal>> =
+        MutableLiveData(ArrayList())
+    val listTerminalsLive: LiveData<ArrayList<Model.Terminal>> = listTerminals
+
     private val listNotification: MutableLiveData<ArrayList<Model.Notification>> =
         MutableLiveData(ArrayList())
     val listNotificationLive: LiveData<ArrayList<Model.Notification>> = listNotification
@@ -189,6 +193,20 @@ class UserManager constructor(
             if (req.isSuccessful) {
                 req.body()?.let {
                     listContent.postValue(it.data)
+                }
+            }
+        }
+    }
+
+    fun getTerminals() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getTerminals()
+            Log.d("LOGTerminals", req.toString())
+            Log.d("LOGTerminals", req.body().toString())
+            Log.d("LOGTerminals", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listTerminals.postValue(it.data)
                 }
             }
         }
