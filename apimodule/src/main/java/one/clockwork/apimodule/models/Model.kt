@@ -183,7 +183,7 @@ object Model {
         val _id: String,
         val name: String,
         val terminalId: String,
-        val address: Address,
+        val address: String,
         val conceptId: String,
         val isDeleted: Boolean,
         val isHidden: Boolean,
