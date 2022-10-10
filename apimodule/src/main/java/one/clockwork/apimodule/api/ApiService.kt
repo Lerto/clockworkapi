@@ -43,7 +43,7 @@ interface ApiService {
     ): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/categories")
+    @GET("api/v1/categories/?limit=500")
     suspend fun getCategories(): Response<ModelData.CategoryData>
 
     @Headers("Content-Type: application/json")
