@@ -184,10 +184,26 @@ object Model {
         val name: String,
         val terminalId: String,
         val address: String,
+        val city: String,
+        val emails: ArrayList<String>,
+        val timezone: String,
+        val delivery: String,
+        val phones: ArrayList<Phones>,
+        val businessHours: ArrayList<Hours>,
         val conceptId: String,
         val isDeleted: Boolean,
         val isHidden: Boolean,
         val isDisabled: Boolean
+    )
+
+    data class Phones(
+        val name: String,
+        val phone: String
+    )
+
+    data class Hours(
+        val days: String,
+        val hours: String
     )
 
 
