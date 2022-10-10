@@ -24,6 +24,10 @@ object ModelData {
         val data: ArrayList<Model.Content>
     )
 
+    data class OrderData(
+        val data: ArrayList<Model.Order>
+    )
+
     data class NotificationData(
         val data: ArrayList<Model.Notification>
     )

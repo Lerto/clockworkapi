@@ -33,6 +33,11 @@ interface ApiService {
     ): Response<ModelData.ContentData>
 
     @Headers("Content-Type: application/json")
+    @GET("api/v1/contents")
+    suspend fun getOrders(
+    ): Response<ModelData.OrderData>
+
+    @Headers("Content-Type: application/json")
     @GET("api/v1/terminals")
     suspend fun getTerminals(
     ): Response<ModelData.TerminalData>

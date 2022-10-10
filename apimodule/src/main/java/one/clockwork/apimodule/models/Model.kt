@@ -62,6 +62,24 @@ object Model {
         var isSelected: Boolean = false
     )
 
+    data class Order(
+        val _id: String,
+        val number: Int,
+        val address: Address,
+        val comment: String,
+        val conceptId: String,
+        val products: ArrayList<OrderProduct>,
+        val deliveryTime: String,
+        val deliveryTypeId: String
+    )
+
+    data class OrderProduct(
+        val code: String,
+        val name: String,
+        val amount: Int,
+        val price: Int
+    )
+
     data class Content(
         val _id: String,
         val name: String,

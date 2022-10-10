@@ -35,6 +35,11 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listNotificationLive: LiveData<ArrayList<Model.Notification>> = listNotification
 
+
+    private val listOrders: MutableLiveData<ArrayList<Model.Order>> =
+        MutableLiveData(ArrayList())
+    val listOrdersLive: LiveData<ArrayList<Model.Order>> = listOrders
+
     var balance: MutableLiveData<Model.Balance> = MutableLiveData(Model.Balance(0.0, ArrayList()))
 
     var addresses: MutableLiveData<ArrayList<Model.Address>> = MutableLiveData(ArrayList())
@@ -155,6 +160,20 @@ class UserManager constructor(
         }
     }
 
+    fun gerOrders() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getOrders()
+            Log.d("LOGOrders", req.toString())
+            Log.d("LOGOrders", req.body().toString())
+            Log.d("LOGOrders", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listOrders.postValue(it.data)
+                }
+            }
+        }
+    }
+
 
     fun getStories() {
         CoroutineScope(Dispatchers.Main).launch {
@@ -224,6 +243,7 @@ class UserManager constructor(
     init {
         getProfile()
         getStories()
+        gerOrders()
         getContent()
         getNotifications()
     }
