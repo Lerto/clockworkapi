@@ -69,6 +69,7 @@ object Model {
         val comment: String,
         val conceptId: String,
         val products: ArrayList<OrderProduct>,
+        val terminalId: String?,
         val deliveryTime: String,
         val deliveryTypeId: String
     )

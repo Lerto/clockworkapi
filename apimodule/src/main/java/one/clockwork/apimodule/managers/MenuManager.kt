@@ -76,7 +76,10 @@ class MenuManager constructor(
             }
         }
         categoryData.postValue(catParent)
-        splitMenu(catParent[0])
+
+        if (catParent.isNotEmpty()) {
+            splitMenu(catParent[0])
+        }
     }
 
     fun splitMenu(parentCatId: Model.Category) {
@@ -125,7 +128,11 @@ class MenuManager constructor(
                 menu.products = req.body()!!.data
 
                 productData.postValue(menu.products)
-                conceptData.value?.get(0)?._id?.let { splitCategoryConcept(it) }
+                if(conceptData.value != null) {
+                    if(conceptData.value!!.isNotEmpty()){
+                        conceptData.value!![0]._id?.let { splitCategoryConcept(it) }
+                    }
+                }
             }
         }
     }
