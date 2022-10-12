@@ -33,7 +33,7 @@ interface ApiService {
     ): Response<ModelData.ContentData>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/contents")
+    @GET("api/v1/orders")
     suspend fun getOrders(
     ): Response<ModelData.OrderData>
 
