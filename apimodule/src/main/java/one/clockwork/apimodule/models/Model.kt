@@ -128,7 +128,10 @@ object Model {
     data class Modifiers(
         val _id: String,
         val name: String,
-        val options: ArrayList<Options>
+        val options: ArrayList<Options>,
+        val maxAmount: Int,
+        val minAmount: Int,
+        val required: Boolean
     ) : Serializable
 
     data class Options(
