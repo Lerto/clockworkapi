@@ -134,7 +134,10 @@ object Model {
     data class Options(
         val _id: String,
         val name: String,
-        val price: Int
+        val price: Int,
+        val maxAmount: Int,
+        val minAmount: Int,
+        val required: Boolean
     )
 
 
