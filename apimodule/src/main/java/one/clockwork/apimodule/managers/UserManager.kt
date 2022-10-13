@@ -160,7 +160,7 @@ class UserManager constructor(
         }
     }
 
-    fun gerOrders() {
+    fun getOrders() {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().getOrders()
             Log.d("LOGOrders", req.toString())
@@ -243,7 +243,7 @@ class UserManager constructor(
     init {
         getProfile()
         getStories()
-        gerOrders()
+        getOrders()
         getContent()
         getNotifications()
     }

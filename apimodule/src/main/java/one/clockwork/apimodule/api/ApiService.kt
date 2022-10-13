@@ -32,7 +32,7 @@ interface ApiService {
     ): Response<ModelData.ContentData>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/orders")
+    @GET("api/v1/orders/")
     suspend fun getOrders(
     ): Response<ModelData.OrderData>
 
@@ -87,13 +87,13 @@ interface ApiService {
     suspend fun getStories(): Response<ModelData.StoryData>
 
     @Headers("Content-Type: application/json")
-    @GET("/api/v1/favorite")
+    @GET("/api/v1/favorite/")
     suspend fun getFavorite(
         @Query("conceptId") conceptId: String
     ): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
-    @HTTP(method = "DELETE", path = "/api/v1/favorite", hasBody = true)
+    @HTTP(method = "DELETE", path = "/api/v1/favorite/", hasBody = true)
     suspend fun deleteFavorite(
         @Body body: Model.FavoriteCode
     ): Response<ModelData.ProductData>
@@ -103,7 +103,7 @@ interface ApiService {
     suspend fun getNotif(): Response<ModelData.NotificationData>
 
     @Headers("Content-Type: application/json")
-    @POST("/api/v1/favorite")
+    @POST("/api/v1/favorite/")
     suspend fun sendFavorite(
         @Body body: Model.FavoriteCode
     ): Response<Model.Product>
