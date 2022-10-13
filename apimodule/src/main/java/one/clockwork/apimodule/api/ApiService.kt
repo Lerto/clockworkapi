@@ -1,6 +1,5 @@
 package one.clockwork.apimodule.api
 
-import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
@@ -90,11 +89,11 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("/api/v1/favorite")
     suspend fun getFavorite(
-        @Query("conceptId") id: String
+        @Query("conceptId") conceptId: String
     ): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
-    @HTTP(method = "DELETE", path = "favorite/v1", hasBody = true)
+    @HTTP(method = "DELETE", path = "/api/v1/favorite", hasBody = true)
     suspend fun deleteFavorite(
         @Body body: Model.FavoriteCode
     ): Response<ModelData.ProductData>
@@ -142,49 +141,36 @@ interface ApiService {
 //        }
 
         fun apiCustomer(): ApiService {
-            if (apiServiceCustomer == null) {
-                apiServiceCustomer = Retrofit.Builder().baseUrl(CUSTOMER_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(httpOK()).build()
-                    .create(ApiService::class.java)
-            }
-            return apiServiceCustomer!!
-        }
-
-        fun apiAdmin(context: Context): ApiService {
-            if (apiServiceAdmin == null) {
-                apiServiceAdmin = Retrofit.Builder().baseUrl(ADMIN_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(httpOK()).build()
-                    .create(ApiService::class.java)
-            }
-            return apiServiceAdmin!!
+            return Retrofit.Builder().baseUrl(CUSTOMER_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(httpOK()).build()
+                .create(ApiService::class.java)
         }
 
         private fun httpOK() =
             OkHttpClient.Builder().addInterceptor(MyInterceptor()).addInterceptor {
-                    val request = it.request()
-                    val response = it.proceed(request)
-                    if (response.code == 307) {
-                        val url =
-                            HttpUrl.Builder().scheme(request.url.scheme).host(request.url.host)
-                                .addPathSegment(
-                                    response.header(
-                                        "location",
-                                        request.url.toUrl().path
-                                    ) ?: ""
-                                ).build()
+                val request = it.request()
+                val response = it.proceed(request)
+                if (response.code == 307) {
+                    val url =
+                        HttpUrl.Builder().scheme(request.url.scheme).host(request.url.host)
+                            .addPathSegment(
+                                response.header(
+                                    "location",
+                                    request.url.toUrl().path
+                                ) ?: ""
+                            ).build()
 
 
-                        val newRequest =
-                            Request.Builder().method(request.method, request.body).url(url)
-                                .headers(request.headers).build()
+                    val newRequest =
+                        Request.Builder().method(request.method, request.body).url(url)
+                            .headers(request.headers).build()
 
-                        return@addInterceptor it.proceed(newRequest)
-                    }
+                    return@addInterceptor it.proceed(newRequest)
+                }
 
-                    response
-                }.sslSocketFactory(TLSSocketFactory(), getTrustManager()!!)
+                response
+            }.sslSocketFactory(TLSSocketFactory(), getTrustManager()!!)
                 .callTimeout(1, TimeUnit.MINUTES).connectTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).build()
 
