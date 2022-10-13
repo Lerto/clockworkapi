@@ -84,7 +84,8 @@ object Model {
         val products: ArrayList<OrderProduct>,
         val terminalId: String?,
         val deliveryTime: String,
-        val deliveryTypeId: String
+        val deliveryTypeId: String,
+        val createdAt: String
     )
 
     data class OrderProduct(
