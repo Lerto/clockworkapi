@@ -62,6 +62,19 @@ object Model {
         var isSelected: Boolean = false
     )
 
+    data class Feedback(
+        val _id: String,
+        val body: String,
+        val score: Int,
+        val orderId: String
+    )
+
+    data class FeedbackSend(
+        val body: String,
+        val score: Int,
+        val orderId: String
+    )
+
     data class Order(
         val _id: String,
         val number: Int,

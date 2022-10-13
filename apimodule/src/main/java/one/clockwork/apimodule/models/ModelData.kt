@@ -28,6 +28,10 @@ object ModelData {
         val data: ArrayList<Model.Order>
     )
 
+    data class FeedbackData(
+        val data: ArrayList<Model.Feedback>
+    )
+
     data class NotificationData(
         val data: ArrayList<Model.Notification>
     )

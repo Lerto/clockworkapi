@@ -37,6 +37,17 @@ interface ApiService {
     ): Response<ModelData.OrderData>
 
     @Headers("Content-Type: application/json")
+    @GET("api/v1/feedbacks/")
+    suspend fun getFeedback(
+    ): Response<ModelData.FeedbackData>
+
+    @Headers("Content-Type: application/json")
+    @POST("api/v1/feedbacks/")
+    suspend fun sendFeedback(
+        @Body body: Model.FeedbackSend
+    ): Response<ModelData.FeedbackData>
+
+    @Headers("Content-Type: application/json")
     @GET("api/v1/terminals")
     suspend fun getTerminals(
     ): Response<ModelData.TerminalData>

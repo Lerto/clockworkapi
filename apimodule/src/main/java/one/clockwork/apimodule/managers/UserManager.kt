@@ -23,6 +23,10 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listStoriesLive: LiveData<ArrayList<Model.Story>> = listStories
 
+    private val listFeedback: MutableLiveData<ArrayList<Model.Feedback>> =
+        MutableLiveData(ArrayList())
+    val listFeedbackLive: LiveData<ArrayList<Model.Feedback>> = listFeedback
+
     private val listContent: MutableLiveData<ArrayList<Model.Content>> =
         MutableLiveData(ArrayList())
     val listContentLive: LiveData<ArrayList<Model.Content>> = listContent
@@ -174,6 +178,31 @@ class UserManager constructor(
         }
     }
 
+    fun getFeedbacks() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getFeedback()
+            Log.d("LOGFeedbacks", req.toString())
+            Log.d("LOGFeedbacks", req.body().toString())
+            Log.d("LOGFeedbacks", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listFeedback.postValue(it.data)
+                }
+            }
+        }
+    }
+
+    fun sendFeedback(feedbackSend: Model.FeedbackSend) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().sendFeedback(feedbackSend)
+            Log.d("LOGFeedbackSend", req.toString())
+            Log.d("LOGFeedbackSend", req.body().toString())
+            Log.d("LOGFeedbackSend", req.errorBody()?.string().toString())
+            if(req.isSuccessful){
+                getFeedbacks()
+            }
+        }
+    }
 
     fun getStories() {
         CoroutineScope(Dispatchers.Main).launch {
