@@ -65,26 +65,6 @@ class UserManager constructor(
 
     private fun setAddress() {
         val newAdd = ArrayList<Model.Address>()
-        newAdd.add(
-            Model.Address(
-                city = "Красноярск",
-                street = "Щорса",
-                home = "40",
-                flat = 1,
-                floor = 2,
-                entrance = 0
-            )
-        )
-        newAdd.add(
-            Model.Address(
-                city = "Красноярск",
-                street = "Щорса",
-                home = "40",
-                flat = 1,
-                floor = 2,
-                entrance = 0
-            )
-        )
         addresses.postValue(newAdd)
     }
 
