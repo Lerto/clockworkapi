@@ -22,6 +22,12 @@ import javax.net.ssl.X509TrustManager
 interface ApiService {
 
     @Headers("Content-Type: application/json")
+    @GET("api/v1/featured_products")
+    suspend fun getFeatured(
+        @Query("conceptId") conceptId: String
+    ): Response<ModelData.FeaturedData>
+
+    @Headers("Content-Type: application/json")
     @GET("api/v1/concepts")
     suspend fun getConcepts(
     ): Response<ModelData.ConceptData>

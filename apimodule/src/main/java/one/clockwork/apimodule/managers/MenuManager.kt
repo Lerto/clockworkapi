@@ -21,6 +21,10 @@ class MenuManager constructor(
         MutableLiveData(ArrayList())
     val menuThisLive: LiveData<ArrayList<Model.CategoryProduct>> = menuThis
 
+    private val featuredData: MutableLiveData<ArrayList<Model.Product>> =
+        MutableLiveData(ArrayList())
+    val featuredDataLive: LiveData<ArrayList<Model.Product>> = featuredData
+
     private val conceptData: MutableLiveData<ArrayList<Model.Concept>> =
         MutableLiveData(ArrayList())
     val conceptDataLive: LiveData<ArrayList<Model.Concept>> = conceptData
@@ -128,8 +132,8 @@ class MenuManager constructor(
                 menu.products = req.body()!!.data
 
                 productData.postValue(menu.products)
-                if(conceptData.value != null) {
-                    if(conceptData.value!!.isNotEmpty()){
+                if (conceptData.value != null) {
+                    if (conceptData.value!!.isNotEmpty()) {
                         conceptData.value!![0]._id?.let { splitCategoryConcept(it) }
                     }
                 }
@@ -177,6 +181,22 @@ class MenuManager constructor(
                 if (req.body() != null) {
                     val products = req.body()!!.data
                     favoriteData.postValue(products)
+                }
+            }
+        }
+    }
+
+    fun getFeatured() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getFeatured(conceptIdThis)
+            Log.d("LogMenuManager", req.toString())
+            Log.d("LogMenuManager", req.headers().toString())
+            Log.d("LogMenuManager", req.body().toString())
+            Log.d("LogMenuManager", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                if (req.body() != null) {
+                    val products = req.body()!!.data
+                    featuredData.postValue(products)
                 }
             }
         }

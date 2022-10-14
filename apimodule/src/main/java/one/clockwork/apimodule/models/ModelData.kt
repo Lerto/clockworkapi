@@ -8,6 +8,10 @@ object ModelData {
         val data: ArrayList<Model.Concept>
     )
 
+    data class FeaturedData(
+        val data: ArrayList<Model.Product>
+    )
+
     data class StoryData(
         val data: ArrayList<Model.Story>
     )
