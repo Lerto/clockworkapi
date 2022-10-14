@@ -77,8 +77,8 @@ class BasketManager {
         return listSend
     }
 
-    fun lastProduct(): String {
-        return lastProduct?.name ?: ""
+    fun lastProduct(): Model.Product? {
+        return lastProduct
     }
 
     suspend fun sendOrder(order: Model.SendOrder): ReturnStatus {
