@@ -116,7 +116,7 @@ interface ApiService {
     ): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/notifications")
+    @GET("api/v1/notifications/")
     suspend fun getNotif(): Response<ModelData.NotificationData>
 
     @Headers("Content-Type: application/json")
