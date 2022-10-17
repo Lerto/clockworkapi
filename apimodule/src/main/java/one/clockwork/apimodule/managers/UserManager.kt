@@ -44,6 +44,10 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listOrdersLive: LiveData<ArrayList<Model.Order>> = listOrders
 
+    private val listFeatured: MutableLiveData<Model.FeaturedProducts> =
+        MutableLiveData()
+    val listFeaturedLive: LiveData<Model.FeaturedProducts> = listFeatured
+
     var balance: MutableLiveData<Model.Balance> = MutableLiveData(Model.Balance(0.0, ArrayList()))
 
     var addresses: MutableLiveData<ArrayList<Model.Address>> = MutableLiveData(ArrayList())
@@ -178,7 +182,7 @@ class UserManager constructor(
             Log.d("LOGFeedbackSend", req.toString())
             Log.d("LOGFeedbackSend", req.body().toString())
             Log.d("LOGFeedbackSend", req.errorBody()?.string().toString())
-            if(req.isSuccessful){
+            if (req.isSuccessful) {
                 getFeedbacks()
             }
         }
@@ -240,6 +244,20 @@ class UserManager constructor(
         }
     }
 
+    fun getFeatured() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = apiService.getFeatured()
+            Log.d("LOGFeatured", req.toString())
+            Log.d("LOGFeatured", req.body().toString())
+            Log.d("LOGFeatured", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listFeatured.postValue(it.data)
+                }
+            }
+        }
+    }
+
     fun sendToken(token: String) {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().sendToken(token)
@@ -254,6 +272,7 @@ class UserManager constructor(
         getStories()
         getOrders()
         getContent()
+        getFeatured()
         getNotifications()
     }
 }

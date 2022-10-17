@@ -8,10 +8,6 @@ object ModelData {
         val data: ArrayList<Model.Concept>
     )
 
-    data class FeaturedData(
-        val data: ArrayList<Model.Product>
-    )
-
     data class StoryData(
         val data: ArrayList<Model.Story>
     )
@@ -38,6 +34,10 @@ object ModelData {
 
     data class NotificationData(
         val data: ArrayList<Model.Notification>
+    )
+
+    data class Featured(
+        val data: Model.FeaturedProducts
     )
 
     data class TerminalData(

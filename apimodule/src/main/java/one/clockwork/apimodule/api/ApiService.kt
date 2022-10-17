@@ -20,13 +20,6 @@ import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
 interface ApiService {
-
-    @Headers("Content-Type: application/json")
-    @GET("api/v1/featured_products")
-    suspend fun getFeatured(
-        @Query("conceptId") conceptId: String
-    ): Response<ModelData.FeaturedData>
-
     @Headers("Content-Type: application/json")
     @GET("api/v1/concepts")
     suspend fun getConcepts(
@@ -118,6 +111,10 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("api/v1/notifications/")
     suspend fun getNotif(): Response<ModelData.NotificationData>
+
+    @Headers("Content-Type: application/json")
+    @GET("api/v1/featured_products/")
+    suspend fun getFeatured(): Response<ModelData.Featured>
 
     @Headers("Content-Type: application/json")
     @POST("/api/v1/favorite/")

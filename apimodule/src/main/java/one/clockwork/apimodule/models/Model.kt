@@ -245,6 +245,13 @@ object Model {
         val hours: String
     )
 
+    data class FeaturedProducts(
+        val _id: String,
+        val companyId: String,
+        val conceptId: String,
+        val products: ArrayList<Product>
+    )
+
 
     data class Notification(
         val _id: String,
