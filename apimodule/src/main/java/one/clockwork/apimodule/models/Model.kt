@@ -24,7 +24,8 @@ object Model {
         val sourceId: String,
         val address: Address?,
         val withdrawBonuses: Int,
-        val comment: String
+        val comment: String,
+        val change: Int?
     )
 
     data class Menu(
