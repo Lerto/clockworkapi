@@ -39,6 +39,9 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listNotificationLive: LiveData<ArrayList<Model.Notification>> = listNotification
 
+    private val promocodeCheckData: MutableLiveData<String> =
+        MutableLiveData()
+    val promocodeCheckDataLive: LiveData<String> = promocodeCheckData
 
     private val listOrders: MutableLiveData<ArrayList<Model.Order>> =
         MutableLiveData(ArrayList())
@@ -198,6 +201,23 @@ class UserManager constructor(
                 req.body()?.let {
                     listStories.postValue(it.data)
                 }
+            }
+        }
+    }
+
+    fun getPromocode(checkPromo: Model.PromocodesCheck){
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().checkPromocode(checkPromo)
+            Log.d("LOGPromocode", req.toString())
+            Log.d("LOGPromocode", req.body().toString())
+            val error = req.errorBody()?.string().toString()
+            Log.d("LOGPromocode", error)
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    promocodeCheckData.postValue(it.product)
+                }
+            } else {
+                promocodeCheckData.postValue(error)
             }
         }
     }

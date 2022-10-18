@@ -122,6 +122,13 @@ interface ApiService {
         @Body body: Model.FavoriteCode
     ): Response<Model.Product>
 
+    @Headers("Content-Type: application/json")
+    @POST("/api/v1/promocodes/")
+    suspend fun checkPromocode(
+        @Body body: Model.PromocodesCheck
+    ): Response<Model.PromocodeProduct>
+
+
 
     @Headers("Content-Type: application/json")
     @PUT("api/v1/me/fcm")

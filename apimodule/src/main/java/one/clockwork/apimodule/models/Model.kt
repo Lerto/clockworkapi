@@ -269,6 +269,16 @@ object Model {
         val conceptId: String
     )
 
+    data class PromocodesCheck(
+        val promocode: String,
+        val conceptId: String,
+        val products: ArrayList<ProductSend>
+    )
+
+    data class PromocodeProduct(
+        val product: String
+    )
+
     data class Story(
         val _id: String? = "",
         val preview: Image?,
