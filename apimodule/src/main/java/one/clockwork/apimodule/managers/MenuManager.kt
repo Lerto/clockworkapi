@@ -186,22 +186,6 @@ class MenuManager constructor(
         }
     }
 
-    fun getFeatured() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val req = ApiService.apiCustomer().getFeatured(conceptIdThis)
-            Log.d("LogMenuManager", req.toString())
-            Log.d("LogMenuManager", req.headers().toString())
-            Log.d("LogMenuManager", req.body().toString())
-            Log.d("LogMenuManager", req.errorBody()?.string().toString())
-            if (req.isSuccessful) {
-                if (req.body() != null) {
-                    val products = req.body()!!.data
-                    featuredData.postValue(products)
-                }
-            }
-        }
-    }
-
     fun sendFavorite(code: String) {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().sendFavorite(Model.FavoriteCode(code, conceptIdThis))
