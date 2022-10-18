@@ -37,7 +37,7 @@ object ModelData {
     )
 
     data class Featured(
-        val data: Model.FeaturedProducts
+        val data: ArrayList<Model.FeaturedProducts
     )
 
     data class TerminalData(

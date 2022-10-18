@@ -44,9 +44,9 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listOrdersLive: LiveData<ArrayList<Model.Order>> = listOrders
 
-    private val listFeatured: MutableLiveData<Model.FeaturedProducts> =
+    private val listFeatured: MutableLiveData<ArrayList<Model.FeaturedProducts>> =
         MutableLiveData()
-    val listFeaturedLive: LiveData<Model.FeaturedProducts> = listFeatured
+    val listFeaturedLive: LiveData<ArrayList<Model.FeaturedProducts>> = listFeatured
 
     var balance: MutableLiveData<Model.Balance> = MutableLiveData(Model.Balance(0.0, ArrayList()))
 
