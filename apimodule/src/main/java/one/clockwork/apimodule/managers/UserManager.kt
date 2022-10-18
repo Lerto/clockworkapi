@@ -214,7 +214,11 @@ class UserManager constructor(
             Log.d("LOGPromocode", error)
             if (req.isSuccessful) {
                 req.body()?.let {
-                    promocodeCheckData.postValue(it.product)
+                    if(it.err != null && it.minSum != null){
+                        promocodeCheckData.postValue("Сумма ${it.minSum}")
+                    } else if (it.product != null){
+                        promocodeCheckData.postValue(it.product!!)
+                    }
                 }
             } else {
                 promocodeCheckData.postValue(error)

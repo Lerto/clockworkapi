@@ -276,7 +276,9 @@ object Model {
     )
 
     data class PromocodeProduct(
-        val product: String
+        val product: String?,
+        val minSum: Int?,
+        val err: String?
     )
 
     data class Story(
