@@ -43,7 +43,7 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listNotificationLive: LiveData<ArrayList<Model.Notification>> = listNotification
 
-    private val promocodeCheckData: MutableLiveData<String> =
+    val promocodeCheckData: MutableLiveData<String> =
         MutableLiveData()
 
     private val listOrders: MutableLiveData<ArrayList<Model.Order>> =
