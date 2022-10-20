@@ -3,9 +3,6 @@ package one.clockwork.apimodule.managers
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import one.clockwork.apimodule.api.ApiService
 import one.clockwork.apimodule.models.Model
 import one.clockwork.apimodule.models.ReturnStatus
@@ -66,7 +63,7 @@ class BasketManager {
     }
 
     fun eraseBasket() {
-        basket.value = ArrayList()
+        basket.postValue(ArrayList())
     }
 
     fun getSendBasket(): ArrayList<Model.ProductSend> {
