@@ -128,6 +128,11 @@ interface ApiService {
         @Body body: Model.PromocodesCheck
     ): Response<Model.PromocodeProduct>
 
+    @Headers("Content-Type: application/json")
+    @POST("/api/v1/delivery/check/")
+    suspend fun checkDelivery(
+        @Body body: Model.CheckDelivery
+    ): Response<Model.DeliveryAnswer>
 
 
     @Headers("Content-Type: application/json")

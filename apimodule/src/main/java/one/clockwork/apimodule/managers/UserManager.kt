@@ -27,6 +27,10 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listFeedbackLive: LiveData<ArrayList<Model.Feedback>> = listFeedback
 
+    private val checkDelivery: MutableLiveData<Model.DeliveryAnswer> =
+        MutableLiveData()
+    val checkDeliveryLive: LiveData<Model.DeliveryAnswer> = checkDelivery
+
     private val listContent: MutableLiveData<ArrayList<Model.Content>> =
         MutableLiveData(ArrayList())
     val listContentLive: LiveData<ArrayList<Model.Content>> = listContent
@@ -205,7 +209,7 @@ class UserManager constructor(
         }
     }
 
-    fun getPromocode(checkPromo: Model.PromocodesCheck){
+    fun getPromocode(checkPromo: Model.PromocodesCheck) {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().checkPromocode(checkPromo)
             Log.d("LOGPromocode", req.toString())
@@ -214,9 +218,9 @@ class UserManager constructor(
             Log.d("LOGPromocode", error)
             if (req.isSuccessful) {
                 req.body()?.let {
-                    if(it.err != null && it.minSum != null){
+                    if (it.err != null && it.minSum != null) {
                         promocodeCheckData.postValue("Сумма ${it.minSum}")
-                    } else if (it.product != null){
+                    } else if (it.product != null) {
                         promocodeCheckData.postValue(it.product!!)
                     }
                 }
@@ -288,6 +292,20 @@ class UserManager constructor(
             Log.d("LOGSendToken", req.toString())
             Log.d("LOGSendToken", req.body().toString())
             Log.d("LOGSendToken", req.errorBody()?.string().toString())
+        }
+    }
+
+    fun checkDelivery(deliveryAddress: Model.CheckDelivery) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().checkDelivery(deliveryAddress)
+            Log.d("LOGSendToken", req.toString())
+            Log.d("LOGSendToken", req.body().toString())
+            Log.d("LOGSendToken", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    checkDelivery.postValue(it)
+                }
+            }
         }
     }
 

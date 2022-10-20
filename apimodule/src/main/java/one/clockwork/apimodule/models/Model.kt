@@ -275,10 +275,29 @@ object Model {
         val products: ArrayList<ProductSend>
     )
 
+    data class CheckDelivery(
+        val address: AddressShort,
+        val conceptId: String
+    )
+
+    data class DeliveryAnswer(
+        val areaName: String,
+        val deliveryPrice: Int,
+        val deliveryTime: String,
+        val isInDeliveryArea: Boolean,
+        val minOrderSum: Int
+    )
+
     data class PromocodeProduct(
         val product: String?,
         val minSum: Int?,
         val err: String?
+    )
+
+    data class AddressShort(
+        val city: String,
+        val street: String,
+        val home: String
     )
 
     data class Story(
