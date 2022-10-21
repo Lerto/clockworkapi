@@ -7,6 +7,14 @@ object Model {
         val message: String
     )
 
+    data class PaymentTypes(
+        val _id: String,
+        val name: String,
+        val code: String,
+        val companyId: String,
+        val conceptId: String
+    )
+
     data class Balance(
         val total: Double,
         val categories: ArrayList<String>

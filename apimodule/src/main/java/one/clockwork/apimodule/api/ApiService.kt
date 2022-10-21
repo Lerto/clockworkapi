@@ -128,6 +128,13 @@ interface ApiService {
         @Body body: Model.PromocodesCheck
     ): Response<Model.PromocodeProduct>
 
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/v1/payments_types/")
+    suspend fun getPaymentTypes(
+        @Query("conceptId") conceptId: String
+    ): Response<ArrayList<Model.PaymentTypes>>
+
     @Headers("Content-Type: application/json")
     @POST("/api/v1/delivery/check/")
     suspend fun checkDelivery(
