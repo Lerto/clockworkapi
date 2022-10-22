@@ -7,7 +7,7 @@ object Model {
         val message: String
     )
 
-    data class PaymentTypes(
+    data class Types(
         val _id: String,
         val name: String,
         val code: String,

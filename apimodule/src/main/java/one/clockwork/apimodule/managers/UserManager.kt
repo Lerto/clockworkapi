@@ -43,6 +43,13 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listNotificationLive: LiveData<ArrayList<Model.Notification>> = listNotification
 
+
+    val listDeliveryTypes: MutableLiveData<ArrayList<Model.Types>> =
+        MutableLiveData(ArrayList())
+
+    val listPaymentTypes: MutableLiveData<ArrayList<Model.Types>> =
+        MutableLiveData(ArrayList())
+
     val promocodeCheckData: MutableLiveData<String> =
         MutableLiveData()
 
@@ -203,6 +210,34 @@ class UserManager constructor(
             if (req.isSuccessful) {
                 req.body()?.let {
                     listStories.postValue(it.data)
+                }
+            }
+        }
+    }
+
+    fun getDeliveryTypes(conceptId: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getDeliveryTypes(conceptId)
+            Log.d("LOGStories", req.toString())
+            Log.d("LOGStories", req.body().toString())
+            Log.d("LOGStories", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listDeliveryTypes.postValue(it)
+                }
+            }
+        }
+    }
+
+    fun getPaymentTypes(conceptId: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getPaymentTypes(conceptId)
+            Log.d("LOGStories", req.toString())
+            Log.d("LOGStories", req.body().toString())
+            Log.d("LOGStories", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listPaymentTypes.postValue(it)
                 }
             }
         }
