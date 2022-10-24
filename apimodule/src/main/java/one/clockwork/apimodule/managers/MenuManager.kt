@@ -205,6 +205,9 @@ class MenuManager constructor(
             Log.d("LogMenuManager", req.toString())
             Log.d("LogMenuManager", req.body().toString())
             Log.d("LogMenuManager", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                getFavorite()
+            }
         }
     }
 }
