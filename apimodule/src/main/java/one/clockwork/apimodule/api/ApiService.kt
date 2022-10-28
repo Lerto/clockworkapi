@@ -147,6 +147,11 @@ interface ApiService {
         @Body body: Model.CheckDelivery
     ): Response<Model.DeliveryAnswer>
 
+    @Headers("Content-Type: application/json")
+    @POST("/api/v1/supports/")
+    suspend fun sendSupport(
+        @Body body: Model.Support
+    ): Response<Model.Support>
 
     @Headers("Content-Type: application/json")
     @PUT("api/v1/me/fcm")

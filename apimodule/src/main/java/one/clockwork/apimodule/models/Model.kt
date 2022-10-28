@@ -288,6 +288,31 @@ object Model {
         val conceptId: String
     )
 
+    data class Support(
+        val name: String,
+        val phone: String,
+        val content: String,
+        val os: Os,
+        val device: Device,
+        val app: App,
+        val customerId: String
+    )
+
+    data class Os(
+        val version: String,
+        val name: String
+    )
+
+    data class Device(
+        val brand: String,
+        val model: String
+    )
+
+    data class App(
+        val version: String,
+        val build: String
+    )
+
     data class DeliveryAnswer(
         val areaName: String,
         val deliveryPrice: Int,

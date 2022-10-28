@@ -267,9 +267,9 @@ class UserManager constructor(
     fun getNotifications() {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().getNotif()
-            Log.d("LOGStories", req.toString())
-            Log.d("LOGStories", req.body().toString())
-            Log.d("LOGStories", req.errorBody()?.string().toString())
+            Log.d("LOGNotification", req.toString())
+            Log.d("LOGNotification", req.body().toString())
+            Log.d("LOGNotification", req.errorBody()?.string().toString())
             if (req.isSuccessful) {
                 req.body()?.let {
                     listNotification.postValue(it.data)
@@ -277,6 +277,16 @@ class UserManager constructor(
             }
         }
     }
+
+    fun sendSupport(support: Model.Support) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().sendSupport(support)
+            Log.d("LOGSupport", req.toString())
+            Log.d("LOGSupport", req.body().toString())
+            Log.d("LOGSupport", req.errorBody()?.string().toString())
+        }
+    }
+
 
     fun getContent() {
         CoroutineScope(Dispatchers.Main).launch {
@@ -332,9 +342,9 @@ class UserManager constructor(
     fun checkDelivery(deliveryAddress: Model.CheckDelivery) {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().checkDelivery(deliveryAddress)
-            Log.d("LOGSendToken", req.toString())
-            Log.d("LOGSendToken", req.body().toString())
-            Log.d("LOGSendToken", req.errorBody()?.string().toString())
+            Log.d("LOGDelivery", req.toString())
+            Log.d("LOGDelivery", req.body().toString())
+            Log.d("LOGDelivery", req.errorBody()?.string().toString())
             if (req.isSuccessful) {
                 req.body()?.let {
                     checkDelivery.postValue(it)
