@@ -1,16 +1,14 @@
 package one.clockwork.apimodule.api
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import okhttp3.HttpUrl
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
 import one.clockwork.apimodule.models.Model
 import one.clockwork.apimodule.models.ModelData
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import retrofit2.http.Headers
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.NoSuchAlgorithmException
@@ -152,6 +150,10 @@ interface ApiService {
     suspend fun sendSupport(
         @Body body: Model.Support
     ): Response<Model.Support>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("/api/v1/me/profile")
+    suspend fun deleteAccount(): Response<Model.Message>
 
     @Headers("Content-Type: application/json")
     @PUT("api/v1/me/fcm")

@@ -74,6 +74,15 @@ class UserManager constructor(
         ApiService.accessToken = ""
     }
 
+    fun deleteAccount() {
+        profile.postValue(Model.User("_none", "", "", 0, "", Gender.M, "", "", 0))
+        ApiService.accessToken = ""
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = apiService.deleteAccount()
+        }
+    }
+
     fun addAddress(address: Model.Address) {
         val valueAd = addresses.value!!
         valueAd.add(address)
@@ -255,7 +264,7 @@ class UserManager constructor(
                     if (it.err != null && it.minSum != null) {
                         promocodeCheckData.postValue("Сумма ${it.minSum}")
                     } else if (it.product != null) {
-                        promocodeCheckData.postValue(it.product!!)
+                        promocodeCheckData.postValue(it.product)
                     }
                 }
             } else {
