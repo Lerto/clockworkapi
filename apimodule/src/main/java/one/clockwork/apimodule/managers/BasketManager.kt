@@ -39,7 +39,7 @@ class BasketManager {
         lastProduct = product
         basket.value?.let { basketValue ->
             basketValue.forEach {
-                if (it.product.name == product.name) {
+                if (it.product.name == product.name && product.modifiers == it.product.modifiers) {
                     it.amount++
                     flagAmount = false
                 }

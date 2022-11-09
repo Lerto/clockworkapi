@@ -264,7 +264,7 @@ class UserManager constructor(
                     if (it.err != null && it.minSum != null) {
                         promocodeCheckData.postValue("Сумма ${it.minSum}")
                     } else if (it.product != null) {
-                        promocodeCheckData.postValue(it.product)
+                        promocodeCheckData.postValue(it.product!!)
                     }
                 }
             } else {
