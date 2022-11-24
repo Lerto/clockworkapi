@@ -21,6 +21,9 @@ class MenuManager constructor(
         MutableLiveData(ArrayList())
     val menuThisLive: LiveData<ArrayList<Model.CategoryProduct>> = menuThis
 
+    val productByCode: MutableLiveData<Model.Product> =
+        MutableLiveData()
+
     private val featuredData: MutableLiveData<ArrayList<Model.Product>> =
         MutableLiveData(ArrayList())
     val featuredDataLive: LiveData<ArrayList<Model.Product>> = featuredData
@@ -136,6 +139,19 @@ class MenuManager constructor(
                     if (conceptData.value!!.isNotEmpty()) {
                         conceptData.value!![0]._id?.let { splitCategoryConcept(it) }
                     }
+                }
+            }
+        }
+    }
+
+    fun getProductByCode(code: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getProductByCode(code)
+            Log.d("LogMenuManager", req.toString())
+            Log.d("LogMenuManager", req.body().toString())
+            if (req.isSuccessful) {
+                if (req.body() != null) {
+                    productByCode.postValue(req.body())
                 }
             }
         }
