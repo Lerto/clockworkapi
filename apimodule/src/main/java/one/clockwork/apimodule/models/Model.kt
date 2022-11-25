@@ -182,12 +182,12 @@ object Model {
         val _id: String = "",
         val name: String = "",
         val code: String = "",
-        val image: Image,
-        val previewImage: Image,
+        val image: Image?,
+        val previewImage: Image?,
         var description: String = "",
-        var unit: String = "",
+        var unit: String? = "",
         var price: Int = 0,
-        var modifiers: ArrayList<Modifiers>,
+        var modifiers: ArrayList<Modifiers>?,
         var weight: Weight,
         var featured: ArrayList<Product>,
         val isHidden: Boolean,
@@ -196,8 +196,8 @@ object Model {
         val slug: String = "",
         val badges: ArrayList<Badge>,
         var amount: Int = 0,
-        var categoryId: String = "",
-        val terminalId: String = ""
+        var categoryId: String? = "",
+        val terminalId: String? = ""
     )
 
     data class Weight(
