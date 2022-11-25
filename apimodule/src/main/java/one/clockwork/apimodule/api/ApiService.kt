@@ -130,7 +130,7 @@ interface ApiService {
     @POST("/api/v1/promocodes/")
     suspend fun checkPromocode(
         @Body body: Model.PromocodesCheck
-    ): Response<Model.PromocodeProduct>
+    ): Response<ModelData.ProductCodeData>
 
 
     @Headers("Content-Type: application/json")

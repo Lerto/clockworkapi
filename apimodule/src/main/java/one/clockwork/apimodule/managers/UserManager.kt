@@ -52,6 +52,8 @@ class UserManager constructor(
 
     val promocodeCheckData: MutableLiveData<String> =
         MutableLiveData()
+    val promocodeCheckProductData: MutableLiveData<Model.Product> =
+        MutableLiveData()
 
     private val listOrders: MutableLiveData<ArrayList<Model.Order>> =
         MutableLiveData(ArrayList())
@@ -261,11 +263,8 @@ class UserManager constructor(
             Log.d("LOGPromocode", error)
             if (req.isSuccessful) {
                 req.body()?.let {
-                    if (it.err != null && it.minSum != null) {
-                        promocodeCheckData.postValue("Сумма ${it.minSum}")
-                    } else if (it.product != null) {
-                        promocodeCheckData.postValue(it.product!!)
-                    }
+                    promocodeCheckData.postValue("OK")
+                    promocodeCheckProductData.postValue(it.product)
                 }
             } else {
                 promocodeCheckData.postValue(error)

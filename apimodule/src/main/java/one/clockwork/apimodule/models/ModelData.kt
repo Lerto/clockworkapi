@@ -16,6 +16,11 @@ object ModelData {
         val data: ArrayList<Model.Product>
     )
 
+    data class
+    ProductCodeData(
+        val product: Model.Product
+    )
+
     data class CategoryData(
         val data: ArrayList<Model.Category>
     ) : Serializable
