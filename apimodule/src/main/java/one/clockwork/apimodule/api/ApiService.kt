@@ -71,10 +71,16 @@ interface ApiService {
     ): Response<Model.ApiAnswer>
 
     @Headers("Content-Type: application/json")
-    @POST("/api/v1/orders/order")
+    @POST("api/v1/orders/order")
     suspend fun sendOrder(
         @Body body: Model.SendOrder
     ): Response<Model.Message>
+
+    @Headers("Content-Type: application/json")
+    @POST("v1/create")
+    suspend fun createOrder(
+        @Query("id") id: String
+    ): Response<Model.OnlinePaymentsOrder>
 
     @Headers("Content-Type: application/json")
     @GET("api/v1/me/profile")
@@ -132,7 +138,6 @@ interface ApiService {
         @Body body: Model.PromocodesCheck
     ): Response<ModelData.ProductCodeData>
 
-
     @Headers("Content-Type: application/json")
     @GET("/api/v1/payments_types/")
     suspend fun getPaymentTypes(
@@ -168,9 +173,8 @@ interface ApiService {
     ): Response<Model.Message>
 
     companion object {
-        private const val MARKETING_URL = "https://marketing.api.cw.marketing/"
-        private const val ADMIN_URL = "https://admin.api.cw.marketing/"
         private const val CUSTOMER_URL = "https://customer.api.cw.marketing/"
+        private const val CREATE_URL = "https://payments.cw.marketing/"
         private var apiService: ApiService? = null
         private var apiServiceAdmin: ApiService? = null
         private var apiServiceCustomer: ApiService? = null
@@ -194,6 +198,13 @@ interface ApiService {
 
         fun apiCustomer(): ApiService {
             return Retrofit.Builder().baseUrl(CUSTOMER_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(httpOK()).build()
+                .create(ApiService::class.java)
+        }
+
+        fun apiCreate(): ApiService {
+            return Retrofit.Builder().baseUrl(CREATE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(httpOK()).build()
                 .create(ApiService::class.java)

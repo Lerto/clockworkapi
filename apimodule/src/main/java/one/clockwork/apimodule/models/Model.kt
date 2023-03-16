@@ -172,6 +172,14 @@ object Model {
         val token: String
     )
 
+    data class OnlinePaymentsOrder(
+        val onlinePayment: OnlinePayment
+    )
+
+    data class OnlinePayment(
+        val url: String
+    )
+
     data class CategoryProduct(
         val title: String,
         val products: ArrayList<Product>,

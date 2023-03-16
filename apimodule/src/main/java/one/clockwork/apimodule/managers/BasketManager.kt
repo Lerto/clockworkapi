@@ -89,4 +89,16 @@ class BasketManager {
             "Fail"
         }
     }
+
+    suspend fun createOrder(id: String): String {
+        val req = ApiService.apiCreate().createOrder(id)
+        Log.d("LOGCreateOrder", req.toString())
+        Log.d("LOGCreateOrder", req.body().toString())
+        Log.d("LOGCreateOrder", req.errorBody()?.string().toString())
+        return if (req.isSuccessful) {
+            req.body()?.onlinePayment?.url ?: "Fail"
+        } else {
+            "Fail"
+        }
+    }
 }
