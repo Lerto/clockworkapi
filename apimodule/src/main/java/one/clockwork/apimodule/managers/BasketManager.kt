@@ -78,15 +78,15 @@ class BasketManager {
         return lastProduct
     }
 
-    suspend fun sendOrder(order: Model.SendOrder): ReturnStatus {
+    suspend fun sendOrder(order: Model.SendOrder): String {
         val req = ApiService.apiCustomer().sendOrder(order)
         Log.d("LOGSendOrder", req.toString())
         Log.d("LOGSendOrder", req.body().toString())
         Log.d("LOGSendOrder", req.errorBody()?.string().toString())
         return if (req.isSuccessful)
-            ReturnStatus.OK
+            req.body()?.message ?: "Fail"
         else {
-            ReturnStatus.FAIL
+            "Fail"
         }
     }
 }
