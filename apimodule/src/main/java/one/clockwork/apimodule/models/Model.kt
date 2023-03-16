@@ -177,7 +177,8 @@ object Model {
     )
 
     data class OnlinePayment(
-        val url: String
+        val orderId: String,
+        val formUrl: String
     )
 
     data class CategoryProduct(
