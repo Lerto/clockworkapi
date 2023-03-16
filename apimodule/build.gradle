@@ -48,11 +48,11 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
 
 
-    //room
-    def room_version = "2.4.2"
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+//    //room
+//    def room_version = "2.4.2"
+//    implementation "androidx.room:room-runtime:$room_version"
+//    implementation "androidx.room:room-ktx:$room_version"
+//    kapt "androidx.room:room-compiler:$room_version"
 }
 
 
@@ -63,7 +63,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.lerto' //your git id
                 artifactId = 'clockworkapi' //your-repository
-                version = '1.9.5' // As same as the Tag
+                version = '1.9.6' // As same as the Tag
             }
         }
     }
