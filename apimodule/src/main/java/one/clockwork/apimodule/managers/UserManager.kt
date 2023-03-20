@@ -11,7 +11,6 @@ import one.clockwork.apimodule.api.ApiService
 import one.clockwork.apimodule.models.Gender
 import one.clockwork.apimodule.models.Model
 import one.clockwork.apimodule.models.ReturnStatus
-//import one.clockwork.vita.data.db.AddressDB
 
 class UserManager constructor(
     private val context: Context,
@@ -86,38 +85,10 @@ class UserManager constructor(
         }
     }
 
-//    private fun setAddress() {
-//        val newAdd = ArrayList<Model.Address>()
-//        addresses.postValue(newAdd)
-//
-//        val db = AddressDB.getInstance(context)
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val addressDb = db?.addressDao()?.getToken()
-//            addressDb?.address?.let {
-//                addresses.postValue(it)
-//            }
-//        }
-//
-//    }
-//
-//    fun saveAddress(addressNew: Model.Address) {
-//        val addressSave = addresses.value!!
-//        if (!addressSave.contains(addressNew)) {
-//            addressSave.add(addressNew)
-//            addresses.postValue(addressSave)
-//            val db = AddressDB.getInstance(context)
-//            CoroutineScope(Dispatchers.IO).launch {
-//                db?.addressDao()?.updateAddress(addressSave)
-//            }
-//        }
-//    }
-//
-//    fun wipeUser() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val db = AddressDB.getInstance(context)
-//            db?.addressDao()?.wipeUser()
-//        }
-//    }
+    private fun setAddress() {
+        val newAdd = ArrayList<Model.Address>()
+        addresses.postValue(newAdd)
+    }
 
     suspend fun registration(user: Model.UserRegistration): ReturnStatus {
         Log.d("LOGUser", user.toString())
