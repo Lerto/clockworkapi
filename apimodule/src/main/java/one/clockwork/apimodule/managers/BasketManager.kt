@@ -96,7 +96,7 @@ class BasketManager {
         Log.d("LOGCreateOrder", req.body().toString())
         Log.d("LOGCreateOrder", req.errorBody()?.string().toString())
         return if (req.isSuccessful) {
-            req.body()?.onlinePayment?.formUrl ?: "Fail"
+            req.body()?.formUrl ?: "Fail"
         } else {
             "Fail"
         }
