@@ -80,7 +80,7 @@ interface ApiService {
     @POST("v1/create")
     suspend fun createOrder(
         @Query("id") id: String
-    ): Response<Model.OnlinePayment>
+    ): Response<Model.OnlinePaymentsOrder>
 
     @Headers("Content-Type: application/json")
     @GET("api/v1/me/profile")
