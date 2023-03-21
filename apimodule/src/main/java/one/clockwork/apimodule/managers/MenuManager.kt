@@ -94,6 +94,7 @@ class MenuManager constructor(
         val menuSplit = ArrayList<Model.CategoryProduct>()
         val categoryAll = ArrayList<Model.Category>()
         splitCategory(parentCatId, categoryAll)
+        categoryAll.add(parentCatId)
         Log.d("LogMenuManagerSplit", categoryAll.toString())
 
         categoryAll.forEach { cat ->
