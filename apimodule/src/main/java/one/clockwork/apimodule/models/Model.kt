@@ -379,4 +379,39 @@ object Model {
     data class LoginAnswer(
         val access_token: String
     )
+
+    data class SmartCategories(
+        val _id: String,
+        val name: String?,
+        val description: String?,
+        val image: Image?,
+        val parentCategory: String?,
+        val conceptId: String?,
+        val terminalId: String?,
+        val rrule: Rule
+    )
+
+    data class SmartProducts(
+        val _id: String,
+        val name: String?,
+        val description: String?,
+        val price: Int,
+        val image: Image?,
+        val previewImage: Image?,
+        val weight: Weight,
+        val rrule: Rule
+    )
+
+    data class Rule(
+        val freq: String,
+        val fromTime: FromTime,
+        val untilTime: FromTime,
+        val weekOfMonth: Int,
+        val byWeekdays: ArrayList<Int>
+    )
+
+    data class FromTime(
+        val hour: Int,
+        val minute: Int
+    )
 }

@@ -40,6 +40,14 @@ class MenuManager constructor(
         MutableLiveData(ArrayList())
     val categoryDataLive: LiveData<ArrayList<Model.Category>> = categoryData
 
+    private val categorySmartData: MutableLiveData<ArrayList<Model.SmartCategories>> =
+        MutableLiveData(ArrayList())
+    val categorySmartDataLive: LiveData<ArrayList<Model.SmartCategories>> = categorySmartData
+
+    private val productSmartData: MutableLiveData<ArrayList<Model.SmartProducts>> =
+        MutableLiveData(ArrayList())
+    val productSmartDataLive: LiveData<ArrayList<Model.SmartProducts>> = productSmartData
+
     private val favoriteData: MutableLiveData<ArrayList<Model.Product>> =
         MutableLiveData(ArrayList())
     val favoriteDataLive: LiveData<ArrayList<Model.Product>> = favoriteData
@@ -145,6 +153,32 @@ class MenuManager constructor(
         }
     }
 
+    private fun getSmartProducts() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getSmartProducts()
+            Log.d("LogMenuManager", req.toString())
+            Log.d("LogMenuManager", req.body().toString())
+            if (req.isSuccessful) {
+                if (req.body() != null) {
+                    productSmartData.postValue(req.body()!!.data)
+                }
+            }
+        }
+    }
+
+    private fun getSmartCategories() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getSmartCategories()
+            Log.d("LogMenuManager", req.toString())
+            Log.d("LogMenuManager", req.body().toString())
+            if (req.isSuccessful) {
+                if (req.body() != null) {
+                    categorySmartData.postValue(req.body()!!.data)
+                }
+            }
+        }
+    }
+
     fun getProductByCode(code: String) {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().getProductByCode(code)
@@ -226,5 +260,10 @@ class MenuManager constructor(
                 getFavorite()
             }
         }
+    }
+
+    init {
+        getSmartCategories()
+        getSmartProducts()
     }
 }

@@ -48,4 +48,12 @@ object ModelData {
     data class TerminalData(
         val data: ArrayList<Model.Terminal>
     )
+
+    data class SmartProductsData(
+        val data: ArrayList<Model.SmartProducts>
+    )
+
+    data class SmartCategoriesData(
+        val data: ArrayList<Model.SmartCategories>
+    )
 }

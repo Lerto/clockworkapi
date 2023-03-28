@@ -83,6 +83,14 @@ interface ApiService {
     ): Response<Model.OnlinePaymentsOrder>
 
     @Headers("Content-Type: application/json")
+    @GET("api/v1/smart_products")
+    suspend fun getSmartProducts(): Response<ModelData.SmartProductsData>
+
+    @Headers("Content-Type: application/json")
+    @GET("api/v1/smart_categories")
+    suspend fun getSmartCategories(): Response<ModelData.SmartCategoriesData>
+
+    @Headers("Content-Type: application/json")
     @GET("api/v1/me/profile")
     suspend fun getProfile(): Response<Model.User>
 
