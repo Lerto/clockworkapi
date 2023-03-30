@@ -361,6 +361,7 @@ class UserManager constructor(
         getOrders()
         getContent()
         getFeatured()
+        getTerminals()
         getNotifications()
     }
 }

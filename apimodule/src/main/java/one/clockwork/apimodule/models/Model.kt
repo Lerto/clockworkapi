@@ -250,7 +250,8 @@ object Model {
         val conceptId: String,
         val isDeleted: Boolean,
         val isHidden: Boolean,
-        val isDisabled: Boolean
+        val isDisabled: Boolean,
+        val geojson: String?
     )
 
     data class Phones(
