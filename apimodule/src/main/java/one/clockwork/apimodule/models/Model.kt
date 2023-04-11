@@ -287,7 +287,9 @@ object Model {
         val body: String,
         val image: Image,
         val isDeleted: Boolean,
-        val isDisabled: Boolean
+        val isDisabled: Boolean,
+        val createdAt: String?,
+        val updatedAt: String?
     )
 
     data class FavoriteCode(
