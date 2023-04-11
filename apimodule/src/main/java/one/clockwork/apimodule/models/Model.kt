@@ -206,7 +206,15 @@ object Model {
         val badges: ArrayList<Badge>,
         var amount: Int = 0,
         var categoryId: String? = "",
-        val terminalId: String? = ""
+        val terminalId: String? = "",
+        val nutrition: Nutrition?
+    )
+
+    data class Nutrition(
+        val energy: Double,
+        val fiber: Double,
+        val fat: Double,
+        val carbohydrate: Double
     )
 
     data class Weight(
