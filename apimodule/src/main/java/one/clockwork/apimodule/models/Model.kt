@@ -208,7 +208,7 @@ object Model {
         var categoryId: String? = "",
         val terminalId: String? = "",
         val nutrition: Nutrition?
-    )
+    ): Serializable
 
     data class Nutrition(
         val energy: Double,
@@ -226,7 +226,7 @@ object Model {
         val _id: String,
         val name: String,
         val image: Image
-    )
+    ): Serializable
 
     data class ProductBasket(
         val product: Product,
@@ -290,7 +290,7 @@ object Model {
         val isDisabled: Boolean,
         val createdAt: String?,
         val updatedAt: String?
-    )
+    ): Serializable
 
     data class FavoriteCode(
         val productCode: String,
