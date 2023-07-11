@@ -63,7 +63,7 @@ object Model {
     data class Image(
         val body: String,
         val hash: String
-    )
+    ): Serializable
 
     data class Restaurant(
         val _id: String = "",
@@ -165,7 +165,7 @@ object Model {
         val maxAmount: Int,
         val minAmount: Int,
         val required: Boolean
-    )
+    ): Serializable
 
 
     data class ApiAnswer(
@@ -185,7 +185,7 @@ object Model {
         val title: String,
         val products: ArrayList<Product>,
         val type: String
-    )
+    ): Serializable
 
     data class Product(
         val _id: String = "",
@@ -215,12 +215,12 @@ object Model {
         val fiber: Double,
         val fat: Double,
         val carbohydrate: Double
-    )
+    ): Serializable
 
     data class Weight(
         val full: Double,
         val min: Double
-    )
+    ): Serializable
 
     data class Badge(
         val _id: String,
@@ -231,18 +231,18 @@ object Model {
     data class ProductBasket(
         val product: Product,
         var amount: Int
-    )
+    ): Serializable
 
     data class ProductSend(
         val code: String,
         val amount: Int,
         val modifiers: ArrayList<ModifiersSend>
-    )
+    ): Serializable
 
     data class ModifiersSend(
         val id: String,
         val amount: Int
-    )
+    ): Serializable
 
     data class Terminal(
         val _id: String,
