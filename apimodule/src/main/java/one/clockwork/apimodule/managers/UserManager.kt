@@ -17,7 +17,7 @@ class UserManager constructor(
     private val apiService: ApiService
 ) {
     var profile: MutableLiveData<Model.User> =
-        MutableLiveData(Model.User("_none", "", "", 0, "", Gender.M, "", "", 0))
+        MutableLiveData(Model.User("_none", "", "", 0, "", Gender.M.type, "", "", 0))
 
     private val listStories: MutableLiveData<ArrayList<Model.Story>> =
         MutableLiveData(ArrayList())
@@ -72,12 +72,12 @@ class UserManager constructor(
     }
 
     fun exit() {
-        profile.postValue(Model.User("_none", "", "", 0, "", Gender.M, "", "", 0))
+        profile.postValue(Model.User("_none", "", "", 0, "", Gender.M.type, "", "", 0))
         ApiService.accessToken = ""
     }
 
     fun deleteAccount() {
-        profile.postValue(Model.User("_none", "", "", 0, "", Gender.M, "", "", 0))
+        profile.postValue(Model.User("_none", "", "", 0, "", Gender.M.type, "", "", 0))
         ApiService.accessToken = ""
 
         CoroutineScope(Dispatchers.Main).launch {
