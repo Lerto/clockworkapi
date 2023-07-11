@@ -143,7 +143,7 @@ object Model {
         val lastName: String,
         val phone: Long,
         val email: String,
-        val sex: Gender,
+        val sex: String,
         val place: String,
         val dob: String,
         val card: Long
