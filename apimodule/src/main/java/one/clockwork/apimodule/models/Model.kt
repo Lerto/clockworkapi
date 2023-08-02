@@ -315,7 +315,7 @@ object Model {
         val os: Os,
         val device: Device,
         val app: App,
-        val customerId: String
+        val customerId: String?
     )
 
     data class Os(
