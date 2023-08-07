@@ -146,7 +146,13 @@ class MenuManager constructor(
                 productData.postValue(menu.products)
                 if (conceptData.value != null) {
                     if (conceptData.value!!.isNotEmpty()) {
-                        conceptData.value!![0]._id?.let { splitCategoryConcept(it) }
+                        conceptData.value!![0]._id?.let {
+                            if (conceptIdThis.isNotEmpty()) {
+                                splitCategoryConcept(conceptIdThis)
+                            } else {
+                                splitCategoryConcept(it)
+                            }
+                        }
                     }
                 }
             }
