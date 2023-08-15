@@ -98,30 +98,19 @@ class MenuManager constructor(
     }
 
     fun splitMenu(parentCatId: Model.Category) {
+        menuThis.postValue(ArrayList())
         Log.d("LogMenuManagerSplit", parentCatId.toString())
-        val menuSplit = ArrayList<Model.CategoryProduct>()
         val categoryAll = ArrayList<Model.Category>()
         splitCategory(parentCatId, categoryAll)
         categoryAll.add(parentCatId)
         Log.d("LogMenuManagerSplit", categoryAll.toString())
 
-        categoryAll.forEach { cat ->
-            val productSplit = ArrayList<Model.Product>()
-            menu.products.forEach { product ->
-                if (product.categoryId == cat._id) {
-                    productSplit.add(product)
-                }
+        CoroutineScope(Dispatchers.Main).launch {
+            categoryAll.forEach { cat ->
+                getProductsByCategory(cat)
             }
-            if (productSplit.isNotEmpty()) {
-                menuSplit.add(
-                    Model.CategoryProduct(
-                        cat.name, productSplit, cat.imageSize ?: "63032ca4c9cf2abb6cf57df8"
-                    )
-                )
-            }
+
         }
-        menuThis.postValue(menuSplit)
-        Log.d("LogMenuManager", menuThis.value.toString())
     }
 
     private fun splitCategory(
@@ -131,6 +120,26 @@ class MenuManager constructor(
             if (cat.parentCategory == categoryId._id) {
                 menuCategories.add(cat)
                 splitCategory(cat, menuCategories)
+            }
+        }
+    }
+
+    private suspend fun getProductsByCategory(cat: Model.Category) {
+        val req = ApiService.apiCustomer().getProductByCategory(cat._id)
+        Log.d("LogMenuManager", req.toString())
+        Log.d("LogMenuManager", req.body().toString())
+        if (req.isSuccessful) {
+            if (req.body() != null && req.body()!!.data.isNotEmpty()) {
+
+                val list = menuThis.value!!
+                list.add(
+                    Model.CategoryProduct(
+                        cat.name, req.body()!!.data, cat.imageSize ?: "63032ca4c9cf2abb6cf57df8"
+                    )
+                )
+
+                menuThis.postValue(list)
+                Log.d("LogMenuManager", menuThis.value.toString())
             }
         }
     }
@@ -158,6 +167,7 @@ class MenuManager constructor(
             }
         }
     }
+
 
     private fun getSmartProducts() {
         CoroutineScope(Dispatchers.Main).launch {

@@ -55,6 +55,12 @@ interface ApiService {
     ): Response<ModelData.ProductData>
 
     @Headers("Content-Type: application/json")
+    @GET("api/v1/products/?limit=500")
+    suspend fun getProductByCategory(
+        @Query("categoryId") categoryId: String
+    ): Response<ModelData.ProductData>
+
+    @Headers("Content-Type: application/json")
     @GET("api/v1/products/code/{code_id}")
     suspend fun getProductByCode(
         @Path("code_id") id: String
