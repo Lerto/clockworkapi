@@ -139,15 +139,15 @@ class MenuManager constructor(
                         cat.name, req.body()!!.data, cat.imageSize ?: "63032ca4c9cf2abb6cf57df8"
                     )
                 )
-
-                if(menuUpdate.size == sizeMenu){
-                    menuThis.postValue(menuUpdate)
-                }
             } else {
                 sizeMenu--
             }
         }else {
             sizeMenu--
+        }
+
+        if(menuUpdate.size == sizeMenu){
+            menuThis.postValue(menuUpdate)
         }
     }
 
