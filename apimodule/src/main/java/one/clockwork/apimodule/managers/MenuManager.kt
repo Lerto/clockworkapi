@@ -17,6 +17,8 @@ class MenuManager constructor(
     var conceptIdThis = ""
     private val menuUpdate = ArrayList<Model.CategoryProduct>(ArrayList())
 
+    var sizeMenu = 0
+
     private val menuThis: MutableLiveData<ArrayList<Model.CategoryProduct>> =
         MutableLiveData(ArrayList())
     val menuThisLive: LiveData<ArrayList<Model.CategoryProduct>> = menuThis
@@ -106,9 +108,10 @@ class MenuManager constructor(
         categoryAll.add(parentCatId)
         Log.d("LogMenuManagerSplit", categoryAll.toString())
 
+        sizeMenu = categoryAll.size
         CoroutineScope(Dispatchers.Main).launch {
             categoryAll.forEach { cat ->
-                getProductsByCategory(cat, categoryAll.size)
+                getProductsByCategory(cat)
             }
 
         }
@@ -125,7 +128,7 @@ class MenuManager constructor(
         }
     }
 
-    private suspend fun getProductsByCategory(cat: Model.Category, size: Int) {
+    private suspend fun getProductsByCategory(cat: Model.Category) {
         val req = ApiService.apiCustomer().getProductByCategory(cat._id)
         Log.d("LogMenuManager", req.toString())
         Log.d("LogMenuManager", req.body().toString())
@@ -137,10 +140,14 @@ class MenuManager constructor(
                     )
                 )
 
-                if(menuUpdate.size == size){
+                if(menuUpdate.size == sizeMenu){
                     menuThis.postValue(menuUpdate)
                 }
+            } else {
+                sizeMenu--
             }
+        }else {
+            sizeMenu--
         }
     }
 
