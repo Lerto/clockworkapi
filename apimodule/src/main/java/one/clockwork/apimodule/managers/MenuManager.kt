@@ -15,7 +15,7 @@ class MenuManager constructor(
 ) {
     var menu = Model.Menu(ArrayList(), ArrayList())
     var conceptIdThis = ""
-    private val menuUpdate = ArrayList<Model.Menu>()
+    private val menuUpdate = ArrayList<Model.CategoryProduct>(ArrayList())
 
     private val menuThis: MutableLiveData<ArrayList<Model.CategoryProduct>> =
         MutableLiveData(ArrayList())
@@ -99,6 +99,7 @@ class MenuManager constructor(
 
     fun splitMenu(parentCatId: Model.Category) {
         menuThis.postValue(ArrayList())
+        menuUpdate.clear()
         Log.d("LogMenuManagerSplit", parentCatId.toString())
         val categoryAll = ArrayList<Model.Category>()
         splitCategory(parentCatId, categoryAll)
@@ -107,7 +108,7 @@ class MenuManager constructor(
 
         CoroutineScope(Dispatchers.Main).launch {
             categoryAll.forEach { cat ->
-                getProductsByCategory(cat)
+                getProductsByCategory(cat, categoryAll.size)
             }
 
         }
@@ -124,22 +125,21 @@ class MenuManager constructor(
         }
     }
 
-    private suspend fun getProductsByCategory(cat: Model.Category) {
+    private suspend fun getProductsByCategory(cat: Model.Category, size: Int) {
         val req = ApiService.apiCustomer().getProductByCategory(cat._id)
         Log.d("LogMenuManager", req.toString())
         Log.d("LogMenuManager", req.body().toString())
         if (req.isSuccessful) {
             if (req.body() != null && req.body()!!.data.isNotEmpty()) {
-
-                val list = menuThis.value!!
-                list.add(
+                menuUpdate.add(
                     Model.CategoryProduct(
                         cat.name, req.body()!!.data, cat.imageSize ?: "63032ca4c9cf2abb6cf57df8"
                     )
                 )
 
-                menuThis.postValue(list)
-                Log.d("LogMenuManager", menuThis.value.toString())
+                if(menuUpdate.size == size){
+                    menuThis.postValue(menuUpdate)
+                }
             }
         }
     }
