@@ -81,7 +81,7 @@ object Model {
     data class FeedbackSend(
         val body: String,
         val score: Int,
-        val orderId: String
+        val orderId: String?
     )
 
     data class Order(
