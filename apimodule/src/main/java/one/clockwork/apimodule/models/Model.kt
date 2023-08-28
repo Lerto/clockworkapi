@@ -54,6 +54,7 @@ object Model {
         val _id: String,
         var sum: Int,
         val changedOn: String,
+        val source: String,
         val conceptId: String,
         val tpcasId: String
     )
