@@ -59,6 +59,10 @@ class UserManager constructor(
         MutableLiveData(ArrayList())
     val listOrdersLive: LiveData<ArrayList<Model.Order>> = listOrders
 
+    private val listTransactions: MutableLiveData<ArrayList<Model.Transactions>> =
+        MutableLiveData(ArrayList())
+    val listTransactionsLive: LiveData<ArrayList<Model.Transactions>> = listTransactions
+
     private val listFeatured: MutableLiveData<ArrayList<Model.FeaturedProducts>> =
         MutableLiveData()
     val listFeaturedLive: LiveData<ArrayList<Model.FeaturedProducts>> = listFeatured
@@ -175,6 +179,20 @@ class UserManager constructor(
             if (req.isSuccessful) {
                 req.body()?.let {
                     listOrders.postValue(it.data)
+                }
+            }
+        }
+    }
+
+    fun getTransactions() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().getTransactions()
+            Log.d("LOGOrders", req.toString())
+            Log.d("LOGOrders", req.body().toString())
+            Log.d("LOGOrders", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    listTransactions.postValue(it.data)
                 }
             }
         }
@@ -363,5 +381,6 @@ class UserManager constructor(
         getFeatured()
         getTerminals()
         getNotifications()
+        getTransactions()
     }
 }

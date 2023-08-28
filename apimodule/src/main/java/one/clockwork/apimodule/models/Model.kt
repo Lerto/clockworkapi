@@ -50,6 +50,14 @@ object Model {
         val entrance: Int
     )
 
+    data class Transactions(
+        val _id: String,
+        var sum: Int,
+        val changedOn: String,
+        val conceptId: String,
+        val tpcasId: String
+    )
+
     data class Concept(
         val _id: String?,
         val name: String?,

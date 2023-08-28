@@ -16,8 +16,11 @@ object ModelData {
         val data: ArrayList<Model.Product>
     )
 
-    data class
-    ProductCodeData(
+    data class TransactionData(
+        val data: ArrayList<Model.Transactions>
+    )
+
+    data class ProductCodeData(
         val product: Model.Product
     )
 
