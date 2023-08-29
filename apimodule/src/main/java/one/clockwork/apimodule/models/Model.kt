@@ -52,7 +52,7 @@ object Model {
 
     data class Transactions(
         val _id: String,
-        var sum: Int,
+        var sum: Double,
         val changedOn: String,
         val source: String,
         val conceptId: String,
