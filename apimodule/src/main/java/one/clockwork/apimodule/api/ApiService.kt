@@ -106,6 +106,12 @@ interface ApiService {
     suspend fun getProfile(): Response<Model.User>
 
     @Headers("Content-Type: application/json")
+    @PUT("api/v1/me/profile")
+    suspend fun updateProfile(
+        @Body body: Model.UserUpdate
+    ): Response<Model.User>
+
+    @Headers("Content-Type: application/json")
     @GET("api/v1/me/balance")
     suspend fun getBalance(): Response<Model.Balance>
 

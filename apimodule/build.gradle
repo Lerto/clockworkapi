@@ -63,7 +63,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.lerto' //your git id
                 artifactId = 'clockworkapi' //your-repository
-                version = '1.9.30' // As same as the Tag
+                version = '1.9.31' // As same as the Tag
             }
         }
     }

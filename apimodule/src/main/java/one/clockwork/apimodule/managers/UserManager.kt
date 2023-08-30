@@ -359,6 +359,15 @@ class UserManager constructor(
         }
     }
 
+    fun updateProfile(profile: Model.UserUpdate) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = ApiService.apiCustomer().updateProfile(profile)
+            Log.d("LOGSendToken", req.toString())
+            Log.d("LOGSendToken", req.body().toString())
+            Log.d("LOGSendToken", req.errorBody()?.string().toString())
+        }
+    }
+
     fun checkDelivery(deliveryAddress: Model.CheckDelivery) {
         CoroutineScope(Dispatchers.Main).launch {
             val req = ApiService.apiCustomer().checkDelivery(deliveryAddress)

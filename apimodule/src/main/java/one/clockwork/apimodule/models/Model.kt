@@ -386,6 +386,12 @@ object Model {
         val tpcasId: String
     )
 
+    data class UserUpdate(
+        val firstName: Long,
+        val lastName: String,
+        val sex: String
+    )
+
     data class Phone(
         val phone: Long,
         val tpcasId: String
