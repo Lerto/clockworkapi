@@ -387,7 +387,7 @@ object Model {
     )
 
     data class UserUpdate(
-        val firstName: Long,
+        val firstName: String,
         val lastName: String,
         val sex: String
     )
