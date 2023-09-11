@@ -81,11 +81,11 @@ class UserManager constructor(
     }
 
     fun deleteAccount() {
-        profile.postValue(Model.User("_none", "", "", 0, "", Gender.M.type, "", "", 0))
-        ApiService.accessToken = ""
-
         CoroutineScope(Dispatchers.Main).launch {
             val req = apiService.deleteAccount()
+
+            profile.postValue(Model.User("_none", "", "", 0, "", Gender.M.type, "", "", 0))
+            ApiService.accessToken = ""
         }
     }
 
