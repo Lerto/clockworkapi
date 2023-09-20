@@ -365,6 +365,9 @@ class UserManager constructor(
             Log.d("LOGSendToken", req.toString())
             Log.d("LOGSendToken", req.body().toString())
             Log.d("LOGSendToken", req.errorBody()?.string().toString())
+            if(req.isSuccessful){
+                getProfile()
+            }
         }
     }
 
