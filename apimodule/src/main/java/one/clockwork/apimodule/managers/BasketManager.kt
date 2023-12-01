@@ -14,16 +14,30 @@ class BasketManager {
 
     private var lastProduct: Model.Product? = null
 
-    fun removeProduct(product: Model.Product) {
+    fun removeProduct(product: Model.Product, modifiers: ArrayList<Model.Options>) {
         basket.value?.let { basketValue ->
             var removeSome: Model.ProductBasket? = null
             basketValue.forEach {
                 if (it.product.name == product.name) {
-                    if (it.amount > 1) {
-                        it.amount--
-                    } else {
-                        removeSome = it
-                        return@forEach
+                    var flag = true
+                    product.modifiers?.forEach { pModi ->
+                        var flag2 = false
+                        modifiers.forEach { mModi ->
+                            if (pModi._id == mModi._id) {
+                                flag2 = true
+                            }
+                        }
+                        if (!flag2) {
+                            flag = false
+                        }
+                    }
+                    if (flag) {
+                        if (it.amount > 1) {
+                            it.amount--
+                        } else {
+                            removeSome = it
+                            return@forEach
+                        }
                     }
                 }
             }
@@ -34,18 +48,32 @@ class BasketManager {
         }
     }
 
-    fun addProduct(product: Model.Product) {
+    fun addProduct(product: Model.Product, modifiers: ArrayList<Model.Options>) {
         var flagAmount = true
         lastProduct = product
         basket.value?.let { basketValue ->
             basketValue.forEach {
-                if (it.product.name == product.name && product.modifiers == it.product.modifiers) {
-                    it.amount++
-                    flagAmount = false
+                if (it.product.name == product.name) {
+                    var flag = true
+                    product.modifiers?.forEach { pModi ->
+                        var flag2 = false
+                        modifiers.forEach { mModi ->
+                            if (pModi._id == mModi._id) {
+                                flag2 = true
+                            }
+                        }
+                        if (!flag2) {
+                            flag = false
+                        }
+                    }
+                    if (flag) {
+                        it.amount++
+                        flagAmount = false
+                    }
                 }
             }
             if (flagAmount) {
-                basketValue.add(Model.ProductBasket(product, 1))
+                basketValue.add(Model.ProductBasket(product, 1, modifiers))
             }
             basket.postValue(basketValue)
         }
@@ -56,6 +84,9 @@ class BasketManager {
             var total = 0.0
             basketValue.forEach {
                 total += it.product.price * it.amount
+                it.modifiers.forEach {
+                    total += it.price
+                }
             }
             return total
         }
@@ -69,7 +100,11 @@ class BasketManager {
     fun getSendBasket(): ArrayList<Model.ProductSend> {
         val listSend = ArrayList<Model.ProductSend>()
         basket.value?.forEach { product ->
-            listSend.add(Model.ProductSend(product.product.code, product.amount, ArrayList()))
+            val modifiers = ArrayList<Model.ModifiersSend>()
+            product.modifiers.forEach {
+                modifiers.add(Model.ModifiersSend(it._id, 1))
+            }
+            listSend.add(Model.ProductSend(product.product.code, product.amount, modifiers))
         }
         return listSend
     }

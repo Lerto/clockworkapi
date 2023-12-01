@@ -239,7 +239,8 @@ object Model {
 
     data class ProductBasket(
         val product: Product,
-        var amount: Int
+        var amount: Int,
+        val modifiers: ArrayList<Options>
     ): Serializable
 
     data class ProductSend(
