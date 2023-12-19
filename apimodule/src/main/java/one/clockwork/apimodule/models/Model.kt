@@ -162,6 +162,7 @@ object Model {
         val _id: String,
         val name: String,
         val options: ArrayList<Options>,
+        val image: Image?,
         val maxAmount: Int,
         val minAmount: Int,
         val required: Boolean
@@ -171,6 +172,7 @@ object Model {
         val _id: String,
         val name: String,
         val price: Int,
+        val image: Image?,
         val maxAmount: Int,
         val minAmount: Int,
         val required: Boolean
