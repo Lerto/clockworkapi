@@ -20,9 +20,9 @@ class BasketManager {
             basketValue.forEach {
                 if (it.product.name == product.name) {
                     var flag = true
-                    product.modifiers?.forEach { pModi ->
+                    modifiers.forEach { pModi ->
                         var flag2 = false
-                        modifiers.forEach { mModi ->
+                        it.modifiers.forEach { mModi ->
                             if (pModi._id == mModi._id) {
                                 flag2 = true
                             }
@@ -55,9 +55,9 @@ class BasketManager {
             basketValue.forEach {
                 if (it.product.name == product.name) {
                     var flag = true
-                    product.modifiers?.forEach { pModi ->
+                    modifiers.forEach { pModi ->
                         var flag2 = false
-                        modifiers.forEach { mModi ->
+                        it.modifiers.forEach { mModi ->
                             if (pModi._id == mModi._id) {
                                 flag2 = true
                             }
