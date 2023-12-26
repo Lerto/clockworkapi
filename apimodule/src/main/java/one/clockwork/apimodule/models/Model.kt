@@ -66,13 +66,20 @@ object Model {
         val additionalData: String,
         val isDeleted: Boolean,
         val isDisabled: Boolean,
-        var isSelected: Boolean = false
+        var isSelected: Boolean = false,
+        val bonuses: Bonuses
+    )
+
+    data class Bonuses(
+        val percentValue: Int?,
+        val minSumma: Int?,
+        val maxSumma: Int?
     )
 
     data class Image(
         val body: String,
         val hash: String
-    ): Serializable
+    ) : Serializable
 
     data class Restaurant(
         val _id: String = "",
@@ -176,7 +183,7 @@ object Model {
         val maxAmount: Int,
         val minAmount: Int,
         val required: Boolean
-    ): Serializable
+    ) : Serializable
 
 
     data class ApiAnswer(
@@ -196,7 +203,7 @@ object Model {
         val title: String,
         val products: ArrayList<Product>,
         val type: String
-    ): Serializable
+    ) : Serializable
 
     data class Product(
         val _id: String = "",
@@ -219,42 +226,42 @@ object Model {
         var categoryId: String? = "",
         val terminalId: String? = "",
         val nutrition: Nutrition?
-    ): Serializable
+    ) : Serializable
 
     data class Nutrition(
         val energy: Double,
         val fiber: Double,
         val fat: Double,
         val carbohydrate: Double
-    ): Serializable
+    ) : Serializable
 
     data class Weight(
         val full: Double,
         val min: Double
-    ): Serializable
+    ) : Serializable
 
     data class Badge(
         val _id: String,
         val name: String,
         val image: Image
-    ): Serializable
+    ) : Serializable
 
     data class ProductBasket(
         val product: Product,
         var amount: Int,
         val modifiers: ArrayList<Options>
-    ): Serializable
+    ) : Serializable
 
     data class ProductSend(
         val code: String,
         val amount: Int,
         val modifiers: ArrayList<ModifiersSend>
-    ): Serializable
+    ) : Serializable
 
     data class ModifiersSend(
         val id: String,
         val amount: Int
-    ): Serializable
+    ) : Serializable
 
     data class Terminal(
         val _id: String,
@@ -302,7 +309,7 @@ object Model {
         val isDisabled: Boolean,
         val createdAt: String?,
         val updatedAt: String?
-    ): Serializable
+    ) : Serializable
 
     data class FavoriteCode(
         val productCode: String,
