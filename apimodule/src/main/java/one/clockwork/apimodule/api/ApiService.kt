@@ -72,7 +72,7 @@ interface ApiService {
     ): Response<Model.Product>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/products/code/{keys}")
+    @GET("api/v1/properties_of_companies/bulk/{keys}")
     suspend fun getPropertiesOfCompany(
         @Path("keys") keys: String
     ): Response<String>
