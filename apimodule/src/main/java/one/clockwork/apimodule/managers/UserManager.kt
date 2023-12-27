@@ -17,14 +17,14 @@ class UserManager constructor(
     private val context: Context,
     private val apiService: ApiService
 ) {
-    var minOrderSum = 500
-
     var profile: MutableLiveData<Model.User> =
         MutableLiveData(Model.User("_none", "", "", 0, "", Gender.M.type, "", "", 0))
 
     private val listStories: MutableLiveData<ArrayList<Model.Story>> =
         MutableLiveData(ArrayList())
     val listStoriesLive: LiveData<ArrayList<Model.Story>> = listStories
+
+    val keysString: MutableLiveData<String> = MutableLiveData()
 
     private val listFeedback: MutableLiveData<ArrayList<Model.Feedback>> =
         MutableLiveData(ArrayList())
@@ -150,8 +150,7 @@ class UserManager constructor(
             Log.d("LOGUser", req.errorBody()?.string().toString())
             if (req.isSuccessful) {
                 req.body()?.let {
-                    val json = JSONObject(it.string()).getString("min_order_sum")
-                    minOrderSum = json.toString().toInt()
+                    keysString.postValue(it.string())
                 }
             }
         }
