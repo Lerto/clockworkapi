@@ -150,7 +150,7 @@ class UserManager constructor(
             Log.d("LOGUser", req.errorBody()?.string().toString())
             if (req.isSuccessful) {
                 req.body()?.let {
-                    val json = JSONObject(it).getString("min_order_sum")
+                    val json = JSONObject(it.string()).getString("min_order_sum")
                     minOrderSum = json.toString().toInt()
                 }
             }

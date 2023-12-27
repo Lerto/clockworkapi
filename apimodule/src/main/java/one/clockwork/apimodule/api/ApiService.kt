@@ -75,7 +75,7 @@ interface ApiService {
     @GET("api/v1/properties_of_companies/bulk/{keys}")
     suspend fun getPropertiesOfCompany(
         @Path("keys") keys: String
-    ): Response<String>
+    ): Response<ResponseBody>
 
     @Headers("Content-Type: application/json")
     @GET("api/v1/categories/?limit=500")
