@@ -357,7 +357,8 @@ object Model {
         val deliveryPrice: Int,
         val deliveryTime: String,
         val isInDeliveryArea: Boolean,
-        val minOrderSum: Int
+        val minOrderSum: Int,
+        val code: String
     )
 
     data class PromocodeProduct(
