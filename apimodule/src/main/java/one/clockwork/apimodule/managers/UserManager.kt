@@ -11,11 +11,14 @@ import one.clockwork.apimodule.api.ApiService
 import one.clockwork.apimodule.models.Gender
 import one.clockwork.apimodule.models.Model
 import one.clockwork.apimodule.models.ReturnStatus
+import org.json.JSONObject
 
 class UserManager constructor(
     private val context: Context,
     private val apiService: ApiService
 ) {
+    var minOrderSum = 500
+
     var profile: MutableLiveData<Model.User> =
         MutableLiveData(Model.User("_none", "", "", 0, "", Gender.M.type, "", "", 0))
 
@@ -137,6 +140,21 @@ class UserManager constructor(
             }
         }
         return Model.CodeAnswer("Error", false)
+    }
+
+    fun getKeys(keys: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val req = apiService.getPropertiesOfCompany(keys)
+            Log.d("LOGUser", req.toString())
+            Log.d("LOGUser", req.body().toString())
+            Log.d("LOGUser", req.errorBody()?.string().toString())
+            if (req.isSuccessful) {
+                req.body()?.let {
+                    val json = JSONObject(it).getString("min_order_sum")
+                    minOrderSum = json.toString().toInt()
+                }
+            }
+        }
     }
 
     fun getProfile() {
@@ -365,7 +383,7 @@ class UserManager constructor(
             Log.d("LOGSendToken", req.toString())
             Log.d("LOGSendToken", req.body().toString())
             Log.d("LOGSendToken", req.errorBody()?.string().toString())
-            if(req.isSuccessful){
+            if (req.isSuccessful) {
                 getProfile()
             }
         }
@@ -394,5 +412,6 @@ class UserManager constructor(
         getTerminals()
         getNotifications()
         getTransactions()
+        getKeys("min_order_sum")
     }
 }

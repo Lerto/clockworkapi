@@ -72,6 +72,12 @@ interface ApiService {
     ): Response<Model.Product>
 
     @Headers("Content-Type: application/json")
+    @GET("api/v1/products/code/{keys}")
+    suspend fun getPropertiesOfCompany(
+        @Path("keys") keys: String
+    ): Response<String>
+
+    @Headers("Content-Type: application/json")
     @GET("api/v1/categories/?limit=500")
     suspend fun getCategories(): Response<ModelData.CategoryData>
 
