@@ -349,7 +349,8 @@ object Model {
 
     data class App(
         val version: String,
-        val build: String
+        val build: String,
+        val id: String
     )
 
     data class DeliveryAnswer(
