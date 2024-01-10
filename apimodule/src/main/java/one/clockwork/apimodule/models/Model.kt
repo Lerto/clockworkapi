@@ -139,11 +139,18 @@ object Model {
         val parentCategory: String?,
         var imageSize: String?,
         var conceptId: String?,
+        val design: Design?,
         val isDeleted: Boolean,
         val isDisabled: Boolean,
         val isHidden: Boolean,
         var isSelected: Boolean = false
     ) : Serializable
+
+    data class Design(
+        val type: String,
+        val placheolder: String,
+        val imageUrl: String
+    )
 
     data class UserRegistration(
         val firstName: String,
