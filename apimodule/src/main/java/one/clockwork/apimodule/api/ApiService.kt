@@ -179,7 +179,7 @@ interface ApiService {
     @GET("/api/v1/delivery_types/")
     suspend fun getDeliveryTypes(
         @Query("conceptId") conceptId: String
-    ): Response<ArrayList<Model.Types>>
+    ): Response<ArrayList<Model.DeliveryTypes>>
 
     @Headers("Content-Type: application/json")
     @POST("/api/v1/delivery/check/")

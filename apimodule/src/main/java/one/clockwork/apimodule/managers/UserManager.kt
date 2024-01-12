@@ -47,7 +47,7 @@ class UserManager constructor(
     val listNotificationLive: LiveData<ArrayList<Model.Notification>> = listNotification
 
 
-    val listDeliveryTypes: MutableLiveData<ArrayList<Model.Types>> =
+    val listDeliveryTypes: MutableLiveData<ArrayList<Model.DeliveryTypes>> =
         MutableLiveData(ArrayList())
 
     val listPaymentTypes: MutableLiveData<ArrayList<Model.Types>> =
